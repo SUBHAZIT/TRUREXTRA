@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trutextra</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f9fafb;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Floating shapes */
+        .floating-shapes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .shape {
+            position: absolute;
+            opacity: 0.8;
+        }
+
+        .shape-circle {
+            border-radius: 50%;
+        }
+
+        .shape-orange {
+            background-color: #fb923c;
+        }
+
+        .shape-blue {
+            background-color: #93c5fd;
+        }
+
+        .shape-purple {
+            background-color: #c084fc;
+        }
+
+        .shape-1 {
+            top: 128px;
+            left: 16px;
+            width: 64px;
+            height: 64px;
+        }
+
+        .shape-2 {
+            top: 64px;
+            right: 128px;
+            width: 0;
+            height: 0;
+            border-left: 24px solid transparent;
+            border-right: 24px solid transparent;
+            border-bottom: 40px solid #fb923c;
+            background: none;
+        }
+
+        .shape-3 {
+            top: 256px;
+            right: 64px;
+            width: 80px;
+            height: 80px;
+        }
+
+        .shape-4 {
+            top: 320px;
+            right: 160px;
+            width: 64px;
+            height: 48px;
+            border-radius: 8px;
+            transform: rotate(12deg);
+        }
+
+        .shape-5 {
+            top: 384px;
+            left: 192px;
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            transform: rotate(45deg);
+        }
+
+        .shape-6 {
+            bottom: 128px;
+            left: -32px;
+            width: 96px;
+            height: 96px;
+        }
+
+        .shape-7 {
+            bottom: 64px;
+            right: 16px;
+            width: 80px;
+            height: 64px;
+            border-radius: 8px;
+            transform: rotate(12deg);
+        }
+
+        /* Header */
+        .header {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 0;
+        }
+
+        .logo-nav {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background-color: #7c3aed;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .logo-text {
+            font-size: 20px;
+            font-weight: bold;
+            color: #111827;
+        }
+
+        .nav {
+            display: flex;
+            gap: 24px;
+        }
+
+        .nav a {
+            color: #374151;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav a:hover {
+            color: #111827;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .signup-btn {
+            background-color: #000;
+            color: white;
+            padding: 8px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.2s;
+        }
+
+        .signup-btn:hover {
+            background-color: #374151;
+        }
+
+        /* Main content */
+        .main {
+            position: relative;
+            z-index: 10;
+            padding: 64px 0;
+        }
+
+        /* Hero section */
+        .hero {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: bold;
+            color: #111827;
+            margin-bottom: 24px;
+            line-height: 1.1;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: #374151;
+            margin-bottom: 16px;
+            max-width: 512px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-btn {
+            background-color: #000;
+            color: white;
+            padding: 16px 32px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 1.125rem;
+            font-weight: 500;
+            display: inline-block;
+            margin-top: 16px;
+            transition: background-color 0.2s;
+        }
+
+        .cta-btn:hover {
+            background-color: #374151;
+        }
+
+        /* Feature cards */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+            max-width: 1152px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            padding: 32px;
+            border-radius: 16px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #111827;
+            margin-bottom: 16px;
+        }
+
+        .feature-card p {
+            color: #374151;
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+
+        .card-online-store {
+            background-color: #bfdbfe;
+        }
+
+        .card-website {
+            background-color: #fed7aa;
+        }
+
+        .card-email {
+            background-color: #ddd6fe;
+        }
+
+        /* Card content */
+        .course-preview {
+            background-color: #1f2937;
+            border-radius: 8px;
+            padding: 16px;
+            color: white;
+        }
+
+        .course-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            background-color: white;
+            border-radius: 50%;
+        }
+
+        .course-text {
+            font-size: 14px;
+        }
+
+        .course-avatar {
+            width: 32px;
+            height: 32px;
+            background-color: #4b5563;
+            border-radius: 50%;
+        }
+
+        .website-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        .website-card {
+            border-radius: 8px;
+            padding: 12px;
+        }
+
+        .website-card-1 {
+            background-color: #ea580c;
+        }
+
+        .website-card-2 {
+            background-color: #dc2626;
+        }
+
+        .card-dots {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 8px;
+        }
+
+        .card-dot {
+            width: 4px;
+            height: 4px;
+            background-color: white;
+            border-radius: 50%;
+        }
+
+        .card-label {
+            font-size: 12px;
+            color: white;
+        }
+
+        .email-bars {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .email-bar {
+            height: 12px;
+            background-color: #1f2937;
+            border-radius: 6px;
+        }
+
+        .email-bar-full {
+            width: 100%;
+        }
+
+        .email-bar-partial {
+            width: 75%;
+        }
+
+        /* Help button */
+        .help-btn {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            width: 48px;
+            height: 48px;
+            background-color: #1f2937;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 15px;
+            cursor: pointer;
+            z-index: 20;
+            transition: background-color 0.2s;
+        }
+
+        .help-btn:hover {
+            background-color: #374151;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .nav {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.125rem;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+            }
+
+            .shape-2, .shape-3, .shape-4, .shape-5 {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 16px;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .feature-card {
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating geometric shapes -->
+    <div class="floating-shapes">
+        <div class="shape shape-circle shape-orange shape-1"></div>
+        <div class="shape shape-orange shape-2"></div>
+        <div class="shape shape-circle shape-blue shape-3"></div>
+        <div class="shape shape-purple shape-4"></div>
+        <div class="shape shape-blue shape-5"></div>
+        <div class="shape shape-circle shape-orange shape-6"></div>
+        <div class="shape shape-orange shape-7"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header" style="padding: 0;">
+                <div class="logo-nav">
+                    <div class="logo">
+                        <div class="logo-icon">p</div>
+                        <span class="logo-text">Trutextra</span>
+                    </div>
+                    <nav class="nav">
+                        <a href="#">About</a>
+                        <a href="#">Explore</a>
+                        <a href="#">Main Menu</a>
+                        <a href="#">Hackthons</a>
+                        <a href="#">Contact Us</a>
+                    </nav>
+                </div>
+                <div class="header-actions">
+                    <a href="#" class="signup-btn">Sign up/Login free</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main content -->
+    <main class="main">
+        <div class="container">
+            <!-- Hero section -->
+            <section class="hero">
+                <h1>The all-in-one for teams of one</h1>
+                <p>Join, to upscale your preparation jurney use Trutextra</p>
+                <p>to check your codding skills and Participates on various Hackthons</p>
+                <a href="#" class="cta-btn">Start your free trial</a>
+            </section>
+
+            <!-- Feature cards -->
+            <section class="features">
+                <!-- Online store card -->
+                <div class="feature-card card-online-store">
+                    <h3>Trutextra's Interview Crash Crouse ›</h3>
+                    <p>Check your questions</p>
+                    <div class="course-preview">
+                        <div class="course-header">
+                            <div class="dot"></div>
+                            <div class="dot"></div>
+                            <span class="course-text">Online Course</span>
+                        </div>
+                        <div class="course-avatar"></div>
+                    </div>
+                </div>
+
+                <!-- Website card -->
+                <div class="feature-card card-website">
+                    <h3>Hackthons ›</h3>
+                    <p>To know the exact Date and the time-line of the various Hackthons to be organized. <h3>Enroll Now</h3></p>
+                    <div class="website-grid">
+                        <div class="website-card website-card-1">
+                            <div class="card-dots">
+                                <div class="card-dot"></div>
+                                <div class="card-dot"></div>
+                                <div class="card-dot"></div>
+                            </div>
+                            <div class="card-label">Adobe Vartual Hackthon</div>
+                        </div>
+                        <div class="website-card website-card-2">
+                            <div class="card-dots">
+                                <div class="card-dot"></div>
+                                <div class="card-dot"></div>
+                                <div class="card-dot"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Email marketing card -->
+                <div class="feature-card card-email">
+                    <h3>Recruiter Contact info: @.. ›</h3>
+                    <p>To reach directly to the authentic and various recruiter for various companies..</p>
+                    <div class="email-bars">
+                        <div class="email-bar email-bar-full"></div>
+                        <div class="email-bar email-bar-partial"></div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Help button -->
+    <button class="help-btn">Help?</button>
+</body>
+</html>
