@@ -1,0 +1,4723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TRUREXTRA - Advanced Coding Platform</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            /* Light theme colors */
+            --primary: #6366f1;
+            --primary-light: #818cf8;
+            --secondary: #f59e0b;
+            --dark: #1e293b;
+            --darker: #0f172a;
+            --light: #f8fafc;
+            --lighter: #ffffff;
+            --gray: #64748b;
+            --card-bg: rgba(255, 255, 255, 0.1);
+            --text: #1e293b;
+            --text-light: #64748b;
+            --text-inverse: #f8fafc;
+            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --success: #10b981;
+            --error: #ef4444;
+            --student: #3b82f6;
+            --recruiter: #10b981;
+            --mentor: #f59e0b;
+            --organizer: #8b5cf6;
+            --code-bg: #282c34;
+            --code-text: #abb2bf;
+            --code-comment: #5c6370;
+            --code-keyword: #c678dd;
+            --code-string: #98c379;
+            --code-number: #d19a66;
+            --code-function: #61afef;
+        }
+
+        [data-theme="dark"] {
+            /* Dark theme colors */
+            --primary: #818cf8;
+            --primary-light: #a5b4fc;
+            --secondary: #fbbf24;
+            --dark: #0f172a;
+            --darker: #020617;
+            --light: #1e293b;
+            --lighter: #334155;
+            --gray: #94a3b8;
+            --card-bg: rgba(30, 41, 59, 0.5);
+            --text: #f1f5f9;
+            --text-light: #cbd5e1;
+            --text-inverse: #0f172a;
+            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--lighter);
+            color: var(--text);
+            transition: var(--transition);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Text color assignments */
+        h1, h2, h3, h4, h5, h6,
+        .feature-title,
+        .section-title,
+        .footer-heading,
+        .nav-link,
+        .logo,
+        .hero-title {
+            color: var(--text);
+        }
+
+        p,
+        .hero-subtitle,
+        .feature-desc,
+        .footer-text,
+        .footer-link a,
+        .footer-bottom {
+            color: var(--text-light);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* 3D Background Elements */
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .floating-element {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(40px);
+            opacity: 0.15;
+            transform-style: preserve-3d;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        .element-1 {
+            width: 300px;
+            height: 300px;
+            background: var(--primary);
+            top: 10%;
+            left: 5%;
+            animation-delay: 0s;
+        }
+
+        .element-2 {
+            width: 400px;
+            height: 400px;
+            background: var(--secondary);
+            bottom: 10%;
+            right: 5%;
+            animation-delay: 2.5s;
+        }
+
+        .element-3 {
+            width: 200px;
+            height: 200px;
+            background: var(--primary-light);
+            top: 50%;
+            left: 30%;
+            animation-delay: 5s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(5deg);
+            }
+        }
+
+        /* Header */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            background-color: rgba(248, 250, 252, 0.8);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        [data-theme="dark"] header {
+            background-color: rgba(15, 23, 42, 0.8);
+        }
+
+        .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.5rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 700;
+            font-size: 1.5rem;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 2.5rem;
+            height: 2.5rem;
+            background: var(--primary);
+            color: var(--light);
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            transition: var(--transition);
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: var(--transition);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--light);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--light);
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(99, 102, 241, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .btn-danger {
+            background: #ef4444;
+            color: var(--light);
+        }
+
+        .btn-danger:hover {
+            background: #dc2626;
+            transform: translateY(-2px);
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: var(--light);
+        }
+
+        .btn-success:hover {
+            background: #059669;
+            transform: translateY(-2px);
+        }
+
+        .btn-student {
+            background: var(--student);
+            color: var(--light);
+        }
+
+        .btn-student:hover {
+            background: #2563eb;
+            transform: translateY(-2px);
+        }
+
+        .btn-recruiter {
+            background: var(--recruiter);
+            color: var(--light);
+        }
+
+        .btn-recruiter:hover {
+            background: #059669;
+            transform: translateY(-2px);
+        }
+
+        .btn-mentor {
+            background: var(--mentor);
+            color: var(--light);
+        }
+
+        .btn-mentor:hover {
+            background: #d97706;
+            transform: translateY(-2px);
+        }
+
+        .btn-organizer {
+            background: var(--organizer);
+            color: var(--light);
+        }
+
+        .btn-organizer:hover {
+            background: #7c3aed;
+            transform: translateY(-2px);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.25rem;
+            cursor: pointer;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--primary);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 101;
+        }
+
+        /* Modals */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--lighter);
+            border-radius: 1rem;
+            width: 90%;
+            max-width: 500px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            position: relative;
+            transform: translateY(-20px);
+            opacity: 0;
+            transition: var(--transition);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal.active .modal-content {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-light);
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--text);
+        }
+
+        .user-type-selector {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .user-type-btn {
+            padding: 1rem;
+            border-radius: 0.75rem;
+            background: var(--light);
+            border: 1px solid var(--gray);
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+            font-weight: 600;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .user-type-btn i {
+            font-size: 1.5rem;
+        }
+
+        .user-type-btn.student {
+            border-color: var(--student);
+        }
+
+        .user-type-btn.student:hover, .user-type-btn.student.active {
+            background: var(--student);
+            color: var(--light);
+        }
+
+        .user-type-btn.recruiter {
+            border-color: var(--recruiter);
+        }
+
+        .user-type-btn.recruiter:hover, .user-type-btn.recruiter.active {
+            background: var(--recruiter);
+            color: var(--light);
+        }
+
+        .user-type-btn.mentor {
+            border-color: var(--mentor);
+        }
+
+        .user-type-btn.mentor:hover, .user-type-btn.mentor.active {
+            background: var(--mentor);
+            color: var(--light);
+        }
+
+        .user-type-btn.organizer {
+            border-color: var(--organizer);
+        }
+
+        .user-type-btn.organizer:hover, .user-type-btn.organizer.active {
+            background: var(--organizer);
+            color: var(--light);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border-radius: 0.75rem;
+            border: 1px solid var(--gray);
+            background: var(--light);
+            color: var(--text);
+            transition: var(--transition);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+        }
+
+        .input-group {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .input-group .form-input {
+            flex: 1;
+        }
+
+        .input-group-btn {
+            padding: 0.75rem 1rem;
+            border-radius: 0.75rem;
+            background: var(--primary);
+            color: var(--light);
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+
+        .input-group-btn:disabled {
+            background: var(--gray);
+            cursor: not-allowed;
+        }
+
+        .input-group-btn:hover:not(:disabled) {
+            background: var(--primary-light);
+        }
+
+        .remember-forgot {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .forgot-password {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            border-radius: 0.75rem;
+            background: var(--primary);
+            color: var(--light);
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .submit-btn:hover {
+            background: var(--primary-light);
+        }
+
+        .auth-divider {
+            display: flex;
+            align-items: center;
+            margin: 1.5rem 0;
+            color: var(--text-light);
+        }
+
+        .auth-divider::before,
+        .auth-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--gray);
+            margin: 0 1rem;
+        }
+
+        .social-auth {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-btn {
+            padding: 0.75rem;
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 1px solid var(--gray);
+            background: var(--light);
+        }
+
+        .social-btn.google {
+            color: #DB4437;
+        }
+
+        .social-btn.github {
+            color: var(--text);
+        }
+
+        .auth-footer {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+
+        .auth-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .form-message {
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .form-message.error {
+            color: var(--error);
+        }
+
+        .form-message.success {
+            color: var(--success);
+        }
+
+        .form-message.info {
+            color: var(--gray);
+        }
+
+        .password-strength {
+            width: 100%;
+            height: 4px;
+            background: var(--light);
+            border-radius: 2px;
+            margin-top: 0.5rem;
+            overflow: hidden;
+        }
+
+        .password-strength-bar {
+            height: 100%;
+            width: 0%;
+            background: var(--error);
+            transition: var(--transition);
+        }
+
+        .password-strength-bar.weak {
+            width: 30%;
+            background: var(--error);
+        }
+
+        .password-strength-bar.medium {
+            width: 60%;
+            background: #f59e0b;
+        }
+
+        .password-strength-bar.strong {
+            width: 100%;
+            background: var(--success);
+        }
+
+        .password-requirements {
+            margin-top: 0.5rem;
+            font-size: 0.75rem;
+            color: var(--text-light);
+        }
+
+        .password-requirement {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .requirement-met {
+            color: var(--success);
+        }
+
+        /* Verification Steps */
+        .verification-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .verification-steps::before {
+            content: '';
+            position: absolute;
+            top: 12px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--gray);
+            z-index: 1;
+        }
+
+        .verification-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 2;
+        }
+
+        .step-number {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: var(--gray);
+            color: var(--light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .step-number.active {
+            background: var(--primary);
+        }
+
+        .step-number.completed {
+            background: var(--success);
+        }
+
+        .step-label {
+            font-size: 0.75rem;
+            color: var(--text-light);
+            text-align: center;
+        }
+
+        /* Profile Section */
+        .profile-section {
+            display: none;
+            padding: 1rem;
+            background: var(--card-bg);
+            border-radius: 1rem;
+            margin-top: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .profile-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        /* Verification Section */
+        .verification-section {
+            display: none;
+            padding: 1rem;
+            background: var(--card-bg);
+            border-radius: 1rem;
+            margin-top: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+
+        .verification-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .verification-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .verification-message {
+            margin-bottom: 1.5rem;
+        }
+
+        .otp-inputs {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .otp-input {
+            width: 3rem;
+            height: 3rem;
+            text-align: center;
+            font-size: 1.5rem;
+            border-radius: 0.5rem;
+            border: 1px solid var(--gray);
+            background: var(--light);
+            color: var(--text);
+        }
+
+        .resend-otp {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .profile-avatar {
+            width: 4rem;
+            height: 4rem;
+            border-radius: 50%;
+            background-color: var(--light);
+            border: 3px solid var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+        
+        .profile-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .profile-avatar .avatar-initial {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .profile-info h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .profile-info p {
+            color: var(--gray);
+            font-size: 0.875rem;
+        }
+
+        .profile-details {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .profile-detail {
+            background: var(--light);
+            padding: 1rem;
+            border-radius: 0.75rem;
+        }
+
+        .detail-label {
+            font-size: 0.75rem;
+            color: var(--gray);
+            margin-bottom: 0.25rem;
+        }
+
+        .detail-value {
+            font-weight: 500;
+        }
+
+        /* User Profile Dropdown */
+        .user-dropdown {
+            position: relative;
+            display: none;
+        }
+
+        .user-dropdown.visible {
+            display: block;
+        }
+
+        .user-avatar {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            background: var(--primary);
+            color: var(--light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+        }
+
+        .user-avatar:hover {
+            transform: scale(1.05);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            right: 0;
+            top: calc(100% + 0.5rem);
+            background: var(--lighter);
+            border-radius: 0.75rem;
+            padding: 0.5rem 0;
+            min-width: 200px;
+            box-shadow: var(--shadow);
+            z-index: 110;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: var(--transition);
+        }
+
+        .dropdown-menu.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-item {
+            padding: 0.75rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--text);
+            transition: var(--transition);
+        }
+
+        .dropdown-item:hover {
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--primary);
+        }
+
+        .dropdown-item.logout:hover {
+            color: var(--error);
+            background: rgba(239, 68, 68, 0.1);
+        }
+
+        .dropdown-divider {
+            height: 1px;
+            background: var(--gray);
+            margin: 0.25rem 0;
+            opacity: 0.2;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 6rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 5rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 3rem;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: var(--transition);
+            transform-style: preserve-3d;
+            position: relative;
+            overflow: hidden;
+        }
+
+        [data-theme="dark"] .feature-card {
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px) rotateX(5deg) rotateY(5deg);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 
+                        0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+            transform: rotate(30deg);
+            transition: var(--transition);
+        }
+
+        .feature-card:hover::before {
+            transform: rotate(0deg);
+        }
+
+        .feature-icon {
+            width: 3.5rem;
+            height: 3.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: var(--light);
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.3);
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .feature-desc {
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .feature-link:hover {
+            color: var(--primary-light);
+            gap: 0.75rem;
+        }
+
+        /* 3D Card Content */
+        .course-preview {
+            background: var(--light);
+            border-radius: 0.75rem;
+            padding: 1rem;
+            color: var(--text-inverse);
+            margin-top: 1.5rem;
+            transform: perspective(1000px) rotateY(-5deg);
+            transition: var(--transition);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-card:hover .course-preview {
+            transform: perspective(1000px) rotateY(0deg);
+        }
+
+        .course-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .dot {
+            width: 0.5rem;
+            height: 0.5rem;
+            background: var(--light);
+            border-radius: 50%;
+        }
+
+        .course-text {
+            font-size: 0.875rem;
+            color: var(--light);
+        }
+
+        .course-avatar {
+            width: 2rem;
+            height: 2rem;
+            background: var(--gray);
+            border-radius: 50%;
+            margin-left: auto;
+        }
+
+        .website-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+        }
+
+        .website-card {
+            border-radius: 0.75rem;
+            padding: 0.75rem;
+            color: white;
+            transform: perspective(1000px) rotateX(5deg);
+            transition: var(--transition);
+            height: 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .feature-card:hover .website-card {
+            transform: perspective(1000px) rotateX(0deg);
+        }
+
+        .website-card-1 {
+            background: linear-gradient(135deg, #ea580c, #f97316);
+        }
+
+        .website-card-2 {
+            background: linear-gradient(135deg, #dc2626, #ef4444);
+        }
+
+        .card-dots {
+            display: flex;
+            gap: 0.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-dot {
+            width: 0.25rem;
+            height: 0.25rem;
+            background: white;
+            border-radius: 50%;
+        }
+
+        .card-label {
+            font-size: 0.75rem;
+            color: white;
+        }
+
+        .email-bars {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .email-bar {
+            height: 0.75rem;
+            background: var(--light);
+            border-radius: 0.375rem;
+            transform: perspective(1000px) rotateX(-5deg);
+            transition: var(--transition);
+        }
+
+        .feature-card:hover .email-bar {
+            transform: perspective(1000px) rotateX(0deg);
+        }
+
+        .email-bar-full {
+            width: 100%;
+        }
+
+        .email-bar-partial {
+            width: 75%;
+        }
+
+        /* Help Button */
+        .help-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 3.5rem;
+            height: 3.5rem;
+            background: var(--primary);
+            color: var(--light);
+            border: none;
+            border-radius: 50%;
+            font-size: 1.25rem;
+            cursor: pointer;
+            z-index: 90;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.3);
+            transform: perspective(1000px) rotate(0deg);
+        }
+
+        .help-btn:hover {
+            background: var(--primary-light);
+            transform: perspective(1000px) rotate(15deg) scale(1.1);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: var(--light);
+            padding: 4rem 0 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--light);
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-logo-icon {
+            width: 2rem;
+            height: 2rem;
+            background: var(--primary);
+            color: var(--light);
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+
+        .footer-text {
+            margin-bottom: 1.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-link {
+            width: 2.5rem;
+            height: 2.5rem;
+            background: var(--darker);
+            color: var(--gray);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .footer-heading {
+            font-weight: 700;
+            font-size: 1.125rem;
+            margin-bottom: 1.5rem;
+            color: var(--light);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-link {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-link a {
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-link a:hover {
+            color: var(--primary);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--darker);
+            padding-top: 2rem;
+            text-align: center;
+            font-size: 0.875rem;
+        }
+
+        /* Dashboard Button */
+        .dashboard-btn {
+            display: none;
+        }
+
+        .dashboard-btn.visible {
+            display: inline-flex;
+        }
+
+        /* Forgot Password Modal */
+        .forgot-modal .modal-content {
+            max-width: 450px;
+        }
+
+        /* Password mismatch indicator */
+        .password-mismatch {
+            display: none;
+            color: var(--error);
+            margin-top: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        /* Spinner animation */
+        .spinner {
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Notification styles */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 8px;
+            background: var(--lighter);
+            color: var(--text);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 10000;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: all 0.3s ease;
+            max-width: 350px;
+        }
+        
+        .notification.success {
+            border-left: 4px solid var(--success);
+        }
+        
+        .notification.error {
+            border-left: 4px solid var(--error);
+        }
+
+        /* New styles for profile picture upload */
+        .profile-picture-upload {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .profile-picture-preview {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: var(--light);
+            border: 3px solid var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+        
+        .profile-picture-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .profile-picture-preview .avatar-initial {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        .upload-btn {
+            background: var(--primary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+        }
+        
+        .upload-btn:hover {
+            background: var(--primary-light);
+        }
+        
+        #profile-picture-input {
+            display: none;
+        }
+        
+        /* Add loading animation for OTP verification */
+        .verification-loading {
+            display: none;
+            text-align: center;
+            margin: 1rem 0;
+        }
+        
+        .verification-loading.active {
+            display: block;
+        }
+        
+        /* Success message after verification */
+        .verification-success {
+            display: none;
+            text-align: center;
+            color: var(--success);
+            margin: 1rem 0;
+        }
+        
+        .verification-success.active {
+            display: block;
+        }
+
+        /* Dashboard Styles */
+        .dashboard {
+            display: none;
+            padding: 2rem 0;
+        }
+
+        .dashboard.active {
+            display: block;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .dashboard-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .dashboard-subtitle {
+            color: var(--text-light);
+            margin-top: 0.5rem;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .dashboard-card {
+            background: var(--card-bg);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: var(--transition);
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+
+        .dashboard-card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .dashboard-card-icon {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+
+        .dashboard-card-icon.student {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--student);
+        }
+
+        .dashboard-card-icon.recruiter {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--recruiter);
+        }
+
+        .dashboard-card-icon.mentor {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--mentor);
+        }
+
+        .dashboard-card-icon.organizer {
+            background: rgba(139, 92, 246, 0.1);
+            color: var(--organizer);
+        }
+
+        .dashboard-card-content {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+        }
+
+        .dashboard-card-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .dashboard-card-link:hover {
+            color: var(--primary-light);
+            gap: 0.75rem;
+        }
+
+        .dashboard-section {
+            margin-bottom: 3rem;
+        }
+
+        .dashboard-section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--text);
+        }
+
+        .problems-list {
+            list-style: none;
+        }
+
+        .problem-item {
+            padding: 1rem;
+            border-radius: 0.75rem;
+            background: var(--card-bg);
+            margin-bottom: 0.75rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition);
+        }
+
+        .problem-item:hover {
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        .problem-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .problem-difficulty {
+            width: 1rem;
+            height: 1rem;
+            border-radius: 50%;
+        }
+
+        .problem-difficulty.easy {
+            background: var(--success);
+        }
+
+        .problem-difficulty.medium {
+            background: var(--mentor);
+        }
+
+        .problem-difficulty.hard {
+            background: var(--error);
+        }
+
+        .problem-title {
+            font-weight: 500;
+        }
+
+        .problem-solve-btn {
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            background: var(--primary);
+            color: var(--light);
+            border: none;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .problem-solve-btn:hover {
+            background: var(--primary-light);
+        }
+
+        .profile-completion {
+            background: var(--card-bg);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .profile-completion-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .profile-completion-title {
+            font-weight: 600;
+        }
+
+        .profile-completion-percent {
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .profile-completion-bar {
+            height: 0.5rem;
+            background: var(--light);
+            border-radius: 0.25rem;
+            overflow: hidden;
+        }
+
+        .profile-completion-progress {
+            height: 100%;
+            background: var(--primary);
+            width: 65%;
+            transition: var(--transition);
+        }
+
+        .profile-completion-steps {
+            margin-top: 1rem;
+        }
+
+        .profile-completion-step {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .profile-completion-step i {
+            color: var(--success);
+        }
+
+        .profile-completion-step.pending i {
+            color: var(--gray);
+        }
+
+        .job-listings {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .job-card {
+            background: var(--card-bg);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: var(--transition);
+        }
+
+        .job-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+
+        .job-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .job-card-company {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .job-card-title {
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .job-card-location {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-light);
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .job-card-salary {
+            color: var(--success);
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .job-card-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .job-skill {
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--primary);
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .job-card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .job-card-posted {
+            color: var(--text-light);
+            font-size: 0.875rem;
+        }
+
+        .job-card-apply {
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            background: var(--primary);
+            color: var(--light);
+            border: none;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .job-card-apply:hover {
+            background: var(--primary-light);
+        }
+
+        .mentor-requests {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .request-card {
+            background: var(--card-bg);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: var(--transition);
+        }
+
+        .request-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+
+        .request-card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .request-card-avatar {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            background: var(--light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        .request-card-name {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .request-card-topic {
+            color: var(--text-light);
+            font-size: 0.875rem;
+        }
+
+        .request-card-content {
+            margin-bottom: 1rem;
+            color: var(--text-light);
+        }
+
+        .request-card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .request-card-date {
+            color: var(--text-light);
+            font-size: 0.875rem;
+        }
+
+        .request-card-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .request-card-btn {
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            border: none;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .request-card-btn.accept {
+            background: var(--success);
+            color: var(--light);
+        }
+
+        .request-card-btn.accept:hover {
+            background: #059669;
+        }
+
+        .request-card-btn.decline {
+            background: var(--error);
+            color: var(--light);
+        }
+
+        .request-card-btn.decline:hover {
+            background: #dc2626;
+        }
+
+        .hackathon-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .hackathon-card {
+            background: var(--card-bg);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hackathon-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+
+        .hackathon-card-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--primary);
+            color: var(--light);
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .hackathon-card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .hackathon-card-host {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+        }
+
+        .hackathon-card-details {
+            margin-bottom: 1rem;
+        }
+
+        .hackathon-card-detail {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-light);
+        }
+
+        .hackathon-card-prize {
+            font-weight: 600;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        .hackathon-card-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hackathon-skill {
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--primary);
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .hackathon-card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .hackathon-card-deadline {
+            color: var(--text-light);
+            font-size: 0.875rem;
+        }
+
+        .hackathon-card-btn {
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            background: var(--primary);
+            color: var(--light);
+            border: none;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .hackathon-card-btn:hover {
+            background: var(--primary-light);
+        }
+
+        /* Live Coding Editor Styles */
+        .coding-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--lighter);
+            z-index: 2000;
+            padding: 1rem;
+            overflow: auto;
+        }
+
+        .coding-container.active {
+            display: block;
+        }
+
+        .coding-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--light);
+        }
+
+        .coding-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .coding-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-light);
+        }
+
+        .coding-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            height: calc(100vh - 120px);
+        }
+
+        .coding-description {
+            overflow-y: auto;
+            padding-right: 1rem;
+        }
+
+        .coding-problem-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .coding-problem-difficulty {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .coding-problem-difficulty.easy {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .coding-problem-difficulty.medium {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--mentor);
+        }
+
+        .coding-problem-difficulty.hard {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--error);
+        }
+
+        .coding-problem-content {
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .coding-problem-example {
+            background: var(--light);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .coding-problem-example-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .coding-problem-example-content {
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+
+        .coding-editor-container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .coding-language-selector {
+            margin-bottom: 1rem;
+        }
+
+        .coding-language-select {
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            background: var(--light);
+            color: var(--text);
+            border: 1px solid var(--gray);
+        }
+
+        .coding-editor {
+            flex: 1;
+            background: var(--code-bg);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            font-family: 'Courier New', Courier, monospace;
+            color: var(--code-text);
+            overflow: auto;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .coding-editor pre {
+            margin: 0;
+            font-family: inherit;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .coding-editor .comment {
+            color: var(--code-comment);
+        }
+
+        .coding-editor .keyword {
+            color: var(--code-keyword);
+        }
+
+        .coding-editor .string {
+            color: var(--code-string);
+        }
+
+        .coding-editor .number {
+            color: var(--code-number);
+        }
+
+        .coding-editor .function {
+            color: var(--code-function);
+        }
+
+        .coding-test-cases {
+            background: var(--light);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .coding-test-cases-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .coding-test-case {
+            margin-bottom: 0.5rem;
+            padding: 0.5rem;
+            border-radius: 0.25rem;
+            background: var(--card-bg);
+        }
+
+        .coding-test-case-input,
+        .coding-test-case-output {
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+
+        .coding-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .coding-run-btn,
+        .coding-submit-btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .coding-run-btn {
+            background: var(--primary-light);
+            color: var(--light);
+        }
+
+        .coding-run-btn:hover {
+            background: var(--primary);
+        }
+
+        .coding-submit-btn {
+            background: var(--success);
+            color: var(--light);
+        }
+
+        .coding-submit-btn:hover {
+            background: #059669;
+        }
+
+        .coding-result {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            background: var(--light);
+        }
+
+        .coding-result-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .coding-result-content {
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+
+        .coding-result-success {
+            color: var(--success);
+        }
+
+        .coding-result-error {
+            color: var(--error);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .container {
+                padding: 0 1.5rem;
+            }
+            
+            .coding-content {
+                grid-template-columns: 1fr;
+                height: auto;
+            }
+            
+            .coding-description {
+                height: 40vh;
+                margin-bottom: 2rem;
+            }
+            
+            .coding-editor-container {
+                height: 60vh;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                position: fixed;
+                top: 0;
+                left: -100%;
+                width: 80%;
+                max-width: 300px;
+                height: 100vh;
+                background: var(--lighter);
+                flex-direction: column;
+                padding: 6rem 2rem 2rem;
+                gap: 1.5rem;
+                transition: var(--transition);
+                z-index: 100;
+                box-shadow: var(--shadow);
+            }
+
+            .nav.active {
+                left: 0;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero {
+                padding: 4rem 0;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-cta {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .user-type-selector {
+                grid-template-columns: 1fr;
+            }
+
+            .user-dropdown {
+                position: static;
+            }
+
+            .dropdown-menu {
+                width: 100%;
+                right: auto;
+                left: 0;
+            }
+
+            .profile-details {
+                grid-template-columns: 1fr;
+            }
+
+            .verification-steps {
+                flex-direction: column;
+                align-items: center;
+                gap: 1.5rem;
+            }
+            
+            .verification-steps::before {
+                display: none;
+            }
+            
+            .verification-step {
+                flex-direction: row;
+                gap: 1rem;
+                width: 100%;
+            }
+            
+            .step-label {
+                text-align: left;
+                flex-grow: 1;
+            }
+            
+            .password-requirements {
+                font-size: 0.7rem;
+            }
+
+            .otp-inputs {
+                flex-wrap: wrap;
+            }
+
+            .otp-input {
+                width: 2.5rem;
+                height: 2.5rem;
+                font-size: 1.25rem;
+            }
+
+            .notification {
+                left: 20px;
+                right: 20px;
+                max-width: none;
+            }
+
+            .dashboard-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            .header-container {
+                padding: 1rem 0;
+            }
+
+            .logo {
+                font-size: 1.25rem;
+            }
+
+            .logo-icon {
+                width: 2rem;
+                height: 2rem;
+                font-size: 1rem;
+            }
+
+            .hero {
+                padding: 3rem 0;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .feature-card {
+                padding: 1.5rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .header-actions {
+                gap: 0.5rem;
+            }
+
+            .social-auth {
+                grid-template-columns: 1fr;
+            }
+
+            .input-group {
+                flex-direction: column;
+            }
+
+            .profile-detail {
+                padding: 0.75rem;
+            }
+
+            .modal-content {
+                padding: 1.5rem;
+            }
+
+            .user-type-btn {
+                padding: 0.75rem;
+            }
+
+            .job-card-footer, .request-card-footer, .hackathon-card-footer {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+
+            .job-card-apply, .request-card-actions, .hackathon-card-btn {
+                width: 100%;
+            }
+            
+            .coding-actions {
+                flex-direction: column;
+            }
+            
+            .coding-run-btn,
+            .coding-submit-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 3D Background Elements -->
+    <div class="floating-elements">
+        <div class="floating-element element-1"></div>
+        <div class="floating-element element-2"></div>
+        <div class="floating-element element-3"></div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-container">
+                <div class="logo-nav">
+                    <button class="mobile-menu-btn">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <a href="#" class="logo">
+                        <div class="logo-icon">T</div>
+                        <span>TRUREXTRA</span>
+                    </a>
+                    <nav class="nav">
+                        <a href="#" class="nav-link">About</a>
+                        <a href="#" class="nav-link">Explore</a>
+                        <a href="#" class="nav-link">Resources</a>
+                        <a href="#" class="nav-link">Hackathons</a>
+                        <a href="#" class="nav-link">Contact</a>
+                    </nav>
+                </div>
+                <div class="header-actions">
+                    <button class="theme-toggle" aria-label="Toggle theme">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <button class="btn btn-secondary login-btn">
+                        <i class="fas fa-sign-in-alt"></i> Log In
+                    </button>
+                    <button class="btn btn-primary signup-btn">
+                        <i class="fas fa-user-plus"></i> Sign Up
+                    </button>
+                    <button class="btn btn-primary dashboard-btn">
+                        <i class="fas fa-tachometer-alt"></i> Dashboard
+                    </button>
+                    <div class="user-dropdown">
+                        <div class="user-avatar">
+                            <span id="avatar-initial">U</span>
+                        </div>
+                        <div class="dropdown-menu">
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-user-circle"></i> Profile
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-cog"></i> Settings
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-item logout">
+                                <i class="fas fa-sign-out-alt"></i> Log Out
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Dashboard Section (Hidden by default) -->
+        <section class="dashboard" id="dashboard">
+            <!-- Student Dashboard -->
+            <div class="dashboard-section" id="student-dashboard">
+                <div class="dashboard-header">
+                    <div>
+                        <h2 class="dashboard-title">Student Dashboard</h2>
+                        <p class="dashboard-subtitle">Welcome back, <span id="student-name">Student</span>! Ready to solve some problems today?</p>
+                    </div>
+                    <div class="profile-completion">
+                        <div class="profile-completion-header">
+                            <div class="profile-completion-title">Profile Completion</div>
+                            <div class="profile-completion-percent">65%</div>
+                        </div>
+                        <div class="profile-completion-bar">
+                            <div class="profile-completion-progress"></div>
+                        </div>
+                        <div class="profile-completion-steps">
+                            <div class="profile-completion-step">
+                                <i class="fas fa-check"></i>
+                                <span>Basic Information</span>
+                            </div>
+                            <div class="profile-completion-step">
+                                <i class="fas fa-check"></i>
+                                <span>Skills</span>
+                            </div>
+                            <div class="profile-completion-step pending">
+                                <i class="fas fa-circle"></i>
+                                <span>Projects</span>
+                            </div>
+                            <div class="profile-completion-step pending">
+                                <i class="fas fa-circle"></i>
+                                <span>Resume</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <h3 class="dashboard-card-title">
+                            <div class="dashboard-card-icon student">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            Coding Problems
+                        </h3>
+                        <p class="dashboard-card-content">Solve coding challenges to improve your skills and prepare for interviews.</p>
+                        <a href="#" class="dashboard-card-link">
+                            Start Practicing <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                    <div class="dashboard-card">
+                        <h3 class="dashboard-card-title">
+                            <div class="dashboard-card-icon student">
+                                <i class="fas fa-briefcase"></i>
+                            </div>
+                            Job Opportunities
+                        </h3>
+                        <p class="dashboard-card-content">Browse job openings from top companies looking for your skills.</p>
+                        <a href="#" class="dashboard-card-link">
+                            View Jobs <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                    <div class="dashboard-card">
+                        <h3 class="dashboard-card-title">
+                            <div class="dashboard-card-icon student">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                            Hackathons
+                        </h3>
+                        <p class="dashboard-card-content">Participate in hackathons to showcase your skills and win prizes.</p>
+                        <a href="#" class="dashboard-card-link">
+                            Explore Hackathons <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="dashboard-section">
+                    <h3 class="dashboard-section-title">Recommended Problems</h3>
+                    <ul class="problems-list">
+                        <li class="problem-item">
+                            <div class="problem-info">
+                                <div class="problem-difficulty easy"></div>
+                                <div class="problem-title">Two Sum</div>
+                            </div>
+                            <button class="problem-solve-btn" data-problem="two-sum">Solve</button>
+                        </li>
+                        <li class="problem-item">
+                            <div class="problem-info">
+                                <div class="problem-difficulty medium"></div>
+                                <div class="problem-title">Add Two Numbers</div>
+                            </div>
+                            <button class="problem-solve-btn" data-problem="add-two-numbers">Solve</button>
+                        </li>
+                        <li class="problem-item">
+                            <div class="problem-info">
+                                <div class="problem-difficulty hard"></div>
+                                <div class="problem-title">Median of Two Sorted Arrays</div>
+                            </div>
+                            <button class="problem-solve-btn" data-problem="median-sorted-arrays">Solve</button>
+                        </li>
+                        <li class="problem-item">
+                            <div class="problem-info">
+                                <div class="problem-difficulty easy"></div>
+                                <div class="problem-title">Palindrome Number</div>
+                            </div>
+                            <button class="problem-solve-btn" data-problem="palindrome-number">Solve</button>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="dashboard-section">
+                    <h3 class="dashboard-section-title">Job Recommendations</h3>
+                    <div class="job-listings">
+                        <div class="job-card">
+                            <div class="job-card-header">
+                                <div>
+                                    <div class="job-card-company">TechCorp</div>
+                                    <h4 class="job-card-title">Frontend Developer</h4>
+                                    <div class="job-card-location">
+                                        <i class="fas fa-map-marker-alt"></i> Remote
+                                    </div>
+                                </div>
+                                <div class="job-card-salary">$80k - $120k</div>
+                            </div>
+                            <div class="job-card-skills">
+                                <span class="job-skill">JavaScript</span>
+                                <span class="job-skill">React</span>
+                                <span class="job-skill">HTML/CSS</span>
+                            </div>
+                            <div class="job-card-footer">
+                                <div class="job-card-posted">Posted 2 days ago</div>
+                                <button class="job-card-apply">Apply Now</button>
+                            </div>
+                        </div>
+                        <div class="job-card">
+                            <div class="job-card-header">
+                                <div>
+                                    <div class="job-card-company">DataSystems</div>
+                                    <h4 class="job-card-title">Backend Engineer</h4>
+                                    <div class="job-card-location">
+                                        <i class="fas fa-map-marker-alt"></i> San Francisco, CA
+                                    </div>
+                                </div>
+                                <div class="job-card-salary">$90k - $130k</div>
+                            </div>
+                            <div class="job-card-skills">
+                                <span class="job-skill">Python</span>
+                                <span class="job-skill">Django</span>
+                                <span class="job-skill">SQL</span>
+                            </div>
+                            <div class="job-card-footer">
+                                <div class="job-card-posted">Posted 1 week ago</div>
+                                <button class="job-card-apply">Apply Now</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recruiter Dashboard -->
+            <div class="dashboard-section" id="recruiter-dashboard">
+                <div class="dashboard-header">
+                    <div>
+                        <h2 class="dashboard-title">Recruiter Dashboard</h2>
+                        <p class="dashboard-subtitle">Welcome back, <span id="recruiter-name">Recruiter</span>! Find top talent for your organization.</p>
+                    </div>
+                </div>
+
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <h3 class="dashboard-card-title">
+                            <div class="dashboard-card-icon recruiter">
+                                <i class="fas fa-search"></i>
+                            </div>
+                            Candidate Search
+                        </h3>
+                        <p class="dashboard-card-content">Find and connect with qualified candidates based on skills and experience.</p>
+                        <a href="#" class="dashboard-card-link">
+                            Search Candidates <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                    <div class="dashboard-card">
+                        <h3 class="dashboard-card-title">
+                            <div class="dashboard-card-icon recruiter">
+                                <i class="fas fa-bullhorn"></i>
+                            </div>
+                            Post Jobs
+                        </h3>
+                        <p class="dashboard-card-content">Create job listings to attract the best talent for your open positions.</p>
+                        <a href="#" class="dashboard-card-link">
+                            Post a Job <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                    <div class="dashboard-card">
+                        <h3 class="dashboard-card-title">
+                            <div class="dashboard-card-icon recruiter">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            Analytics
+                        </h3>
+                        <p class="dashboard-card-content">Track your hiring metrics and optimize your recruitment process.</p>
+                        <a href="#" class="dashboard-card-link">
+                            View Analytics <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="dashboard-section">
+                    <h3 class="dashboard-section-title">Top Candidates</h3>
+                    <div class="job-listings">
+                        <div class="job-card">
+                            <div class="job-card-header">
+                                <div>
+                                    <div class="job-card-company">John Doe</div>
+                                    <h4 class="job-card-title">Senior Frontend Developer</h4>
+                                    <div class="job-card-location">
+                                        <i class="fas fa-map-marker-alt"></i> New York, NY
+                                    </div>
+                                </div>
+                                <div class="job-card-salary">5+ years experience</div>
+                            </div>
+                            <div class="job-card-skills">
+                                <span class="job-skill">React</span>
+                                <span class="job-skill">TypeScript</span>
+                                <span class="job-skill">GraphQL</span>
+                            </div>
+                            <div class="job-card-footer">
+                                <div class="job-card-posted">Last active: 2 days ago</div>
+                                <button class="job-card-apply">Contact</button>
+                            </div>
+                        </div>
+                        <div class="job-card">
+                            <div class="job-card-header">
+                                <div>
+                                    <div class="job-card-company">Jane Smith</div>
+                                    <h4 class="job-card-title">Data Scientist</h4>
+                                    <div class="job-card-location">
+                                        <i class="fas fa-map-marker-alt"></i> Remote
+                                    </div>
+                                </div>
+                                <div class="job-card-salary">3+ years experience</div>
+                            </div>
+                            <div class="job-card-skills">
+                                <span class="job-skill">Python</span>
+                                <span class="job-skill">Machine Learning</span>
+                                <span class="job-skill">TensorFlow</span>
+                            </div>
+                            <div class="job-card-footer">
+                                <div class="job-card-posted">Last active: 1 week ago</div>
+                                <button class="job-card-apply">Contact</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-section">
+                    <h3 class="dashboard-section-title">Your Job Postings</h3>
+                    <div class="job-listings">
+                        <div class="job-card">
+                            <div class="job-card-header">
+                                <div>
+                                    <h4 class="job-card-title">Frontend Developer</h4>
+                                    <div class="job-card-location">
+                                        <i class="fas fa-map-marker-alt"></i> Remote
+                                    </div>
+                                </div>
+                                <div class="job-card-salary">12 applicants</div>
+                            </div>
+                            <div class="job-card-skills">
+                                <span class="job-skill">JavaScript</span>
+                                <span class="job-skill">React</span>
+                                <span class="job-skill">CSS</span>
+                            </div>
+                            <div class="job-card-footer">
+                                <div class="job-card-posted">Posted 2 weeks ago</div>
+                                <button class="job-card-apply">View Applicants</button>
+                            </div>
+                        </div>
+                        <div class="job-card">
+                            <div class="job-card-header">
+                                <div>
+                                    <h4 class="job-card-title">Backend Engineer</h4>
+                                    <div class="job-card-location">
+                                        <i class="fas fa-map-marker-alt"></i> San Francisco, CA
+                                    </div>
+                                </div>
+                                <div class="job-card-salary">8 applicants</div>
+                            </div>
+                            <div class="job-card-skills">
+                                <span class="job-skill">Node.js</span>
+                                <span class="job-skill">MongoDB</span>
+                                <span class="job-skill">AWS</span>
+                            </div>
+                            <div class="job-card-footer">
+                                <div class="job-card-posted">Posted 1 month ago</div>
+                                <button class="job-card-apply">View Applicants</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mentor Dashboard -->
+            <div class="dashboard-section" id="mentor-dashboard">
+                <div class="dashboard-header">
+                    <div>
+                        <h2 class="dashboard-title">Mentor Dashboard</h2>
+                        <p class="dashboard-subtitle">Welcome back, <span id="mentor-name">Mentor</span>! Share your knowledge and help others grow.</p>
+                    </div>
+                </div>
+
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <h3 class="dashboard-card-title">
+                            <div class="dashboard-card-icon mentor">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            Mentorship Requests
+                        </h3>
+                        <p class="dashboard-card-content">Review and respond to mentorship requests from students.</p>
+                        <a href="#" class="dashboard-card-link">
+                            View Requests <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                    <div class="dashboard-card">
+                        <h3 class="dashboard-card-title">
+                            <div class="dashboard-card-icon mentor">
+                                <i class="fas fa-calendar"></i>
+                            </div>
+                            Schedule Sessions
+                        </h3>
+                        <p class="dashboard-card-content">Manage your availability and schedule mentoring sessions.</p>
+                        <a href="#" class="dashboard-card-link">
+                            Manage Calendar <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                    <div class="dashboard-card">
+                        <h3 class="dashboard-card-title">
+                            <div class="dashboard-card-icon mentor">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            Resources
+                        </h3>
+                        <p class="dashboard-card-content">Access and share learning resources with your mentees.</p>
+                        <a href="#" class="dashboard-card-link">
+                            View Resources <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="dashboard-section">
+                    <h3 class="dashboard-section-title">Recent Requests</h3>
+                    <div class="mentor-requests">
+                        <div class="request-card">
+                            <div class="request-card-header">
+                                <div class="request-card-avatar">JD</div>
+                                <div>
+                                    <div class="request-card-name">John Doe</div>
+                                    <div class="request-card-topic">Career Advice</div>
+                                </div>
+                            </div>
+                            <div class="request-card-content">
+                                "I'm transitioning from backend to full-stack development and would love your guidance on the best path forward."
+                            </div>
+                            <div class="request-card-footer">
+                                <div class="request-card-date">Requested 2 days ago</div>
+                                <div class="request-card-actions">
+                                    <button class="request-card-btn accept">Accept</button>
+                                    <button class="request-card-btn decline">Decline</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="request-card">
+                            <div class="request-card-header">
+                                <div class="request-card-avatar">AS</div>
+                                <div>
+                                    <div class="request-card-name">Alice Smith</div>
+                                    <div class="request-card-topic">Technical Interview</div>
+                                </div>
+                            </div>
+                            <div class="request-card-content">
+                                "I have a technical interview coming up at Google for a SWE position. Can we do a mock interview?"
+                            </div>
+                            <div class="request-card-footer">
+                                <div class="request-card-date">Requested 1 week ago</div>
+                                <div class="request-card-actions">
+                                    <button class="request-card-btn accept">Accept</button>
+                                    <button class="request-card-btn decline">Decline</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-section">
+                    <h3 class="dashboard-section-title">Upcoming Sessions</h3>
+                    <ul class="problems-list">
+                        <li class="problem-item">
+                            <div class="problem-info">
+                                <i class="fas fa-user" style="color: var(--mentor);"></i>
+                                <div>
+                                    <div class="problem-title">Mock Interview with Jane</div>
+                                    <div style="font-size: 0.875rem; color: var(--text-light);">Tomorrow, 2:00 PM - 3:00 PM</div>
+                                </div>
+                            </div>
+                            <button class="problem-solve-btn">Details</button>
+                        </li>
+                        <li class="problem-item">
+                            <div class="problem-info">
+                                <i class="fas fa-user" style="color: var(--mentor);"></i>
+                                <div>
+                                    <div class="problem-title">Code Review Session</div>
+                                    <div style="font-size: 0.875rem; color: var(--text-light);">Friday, 4:00 PM - 5:00 PM</div>
+                                </div>
+                            </div>
+                            <button class="problem-solve-btn">Details</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Organizer Dashboard -->
+            <div class="dashboard-section" id="organizer-dashboard">
+                <div class="dashboard-header">
+                    <div>
+                        <h2 class="dashboard-title">Organizer Dashboard</h2>
+                        <p class="dashboard-subtitle">Welcome back, <span id="organizer-name">Organizer</span>! Manage your hackathons and events.</p>
+                    </div>
+                </div>
+
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <h3 class="dashboard-card-title">
+                            <div class="dashboard-card-icon organizer">
+                                <i class="fas fa-plus"></i>
+                            </div>
+                            Create Hackathon
+                        </h3>
+                        <p class="dashboard-card-content">Set up a new hackathon event and customize the details.</p>
+                        <a href="#" class="dashboard-card-link">
+                            Create Now <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                    <div class="dashboard-card">
+                        <h3 class="dashboard-card-title">
+                            <div class="dashboard-card-icon organizer">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            Participants
+                        </h3>
+                        <p class="dashboard-card-content">View and manage participants for your hackathons.</p>
+                        <a href="#" class="dashboard-card-link">
+                            Manage Participants <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                    <div class="dashboard-card">
+                        <h3 class="dashboard-card-title">
+                            <div class="dashboard-card-icon organizer">
+                                <i class="fas fa-chart-bar"></i>
+                            </div>
+                            Analytics
+                        </h3>
+                        <p class="dashboard-card-content">Track engagement and performance of your events.</p>
+                        <a href="#" class="dashboard-card-link">
+                            View Analytics <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="dashboard-section">
+                    <h3 class="dashboard-section-title">Your Hackathons</h3>
+                    <div class="hackathon-list">
+                        <div class="hackathon-card">
+                            <div class="hackathon-card-badge">Active</div>
+                            <h4 class="hackathon-card-title">Global Hack Week</h4>
+                            <div class="hackathon-card-host">Hosted by TechCorp</div>
+                            <div class="hackathon-card-details">
+                                <div class="hackathon-card-detail">
+                                    <i class="fas fa-calendar-alt"></i>
+                                    <span>June 15 - June 22, 2023</span>
+                                </div>
+                                <div class="hackathon-card-detail">
+                                    <i class="fas fa-users"></i>
+                                    <span>245 Participants</span>
+                                </div>
+                            </div>
+                            <div class="hackathon-card-prize">$10,000 in prizes</div>
+                            <div class="hackathon-card-skills">
+                                <span class="hackathon-skill">Web Development</span>
+                                <span class="hackathon-skill">AI/ML</span>
+                                <span class="hackathon-skill">Blockchain</span>
+                            </div>
+                            <div class="hackathon-card-footer">
+                                <div class="hackathon-card-deadline">Registration ends in 3 days</div>
+                                <button class="hackathon-card-btn">Manage</button>
+                            </div>
+                        </div>
+                        <div class="hackathon-card">
+                            <div class="hackathon-card-badge">Upcoming</div>
+                            <h4 class="hackathon-card-title">Sustainability Challenge</h4>
+                            <div class="hackathon-card-host">Hosted by GreenTech</div>
+                            <div class="hackathon-card-details">
+                                <div class="hackathon-card-detail">
+                                    <i class="fas fa-calendar-alt"></i>
+                                    <span>July 10 - July 12, 2023</span>
+                                </div>
+                                <div class="hackathon-card-detail">
+                                    <i class="fas fa-users"></i>
+                                    <span>87 Registered</span>
+                                </div>
+                            </div>
+                            <div class="hackathon-card-prize">$5,000 in prizes</div>
+                            <div class="hackathon-card-skills">
+                                <span class="hackathon-skill">Sustainability</span>
+                                <span class="hackathon-skill">IoT</span>
+                                <span class="hackathon-skill">Data Science</span>
+                            </div>
+                            <div class="hackathon-card-footer">
+                                <div class="hackathon-card-deadline">Starts in 3 weeks</div>
+                                <button class="hackathon-card-btn">Manage</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-section">
+                    <h3 class="dashboard-section-title">Recent Submissions</h3>
+                    <ul class="problems-list">
+                        <li class="problem-item">
+                            <div class="problem-info">
+                                <i class="fas fa-project-diagram" style="color: var(--organizer);"></i>
+                                <div>
+                                    <div class="problem-title">EcoTracker App</div>
+                                    <div style="font-size: 0.875rem; color: var(--text-light);">Submitted by Team GreenDev</div>
+                                </div>
+                            </div>
+                            <button class="problem-solve-btn">Review</button>
+                        </li>
+                        <li class="problem-item">
+                            <div class="problem-info">
+                                <i class="fas fa-project-diagram" style="color: var(--organizer);"></i>
+                                <div>
+                                    <div class="problem-title">AI Recycling System</div>
+                                    <div style="font-size: 0.875rem; color: var(--text-light);">Submitted by Team EcoAI</div>
+                                </div>
+                            </div>
+                            <button class="problem-solve-btn">Review</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Hero Section -->
+        <section class="hero" id="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-title">Build, Learn, and Grow Your Coding Skills</h1>
+                    <p class="hero-subtitle">TRUREXTRA provides the perfect platform for developers of all levels to enhance their skills through interactive coding challenges, real-world projects, and community collaboration.</p>
+                    <div class="hero-cta">
+                        <button class="btn btn-primary get-started-btn">
+                            <i class="fas fa-rocket"></i> Get Started
+                        </button>
+                        <button class="btn btn-secondary explore-btn">
+                            <i class="fas fa-compass"></i> Explore
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features" id="features">
+            <div class="container">
+                <h2 class="section-title">Why Choose TRUREXTRA</h2>
+                <div class="features-grid">
+                    <!-- Feature 1 -->
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h3 class="feature-title">Interactive Coding</h3>
+                        <p class="feature-desc">Practice coding directly in your browser with our interactive coding environment that supports multiple programming languages.</p>
+                        <a href="#" class="feature-link">
+                            Learn more <i class="fas fa-arrow-right"></i>
+                        </a>
+                        <div class="course-preview">
+                            <div class="course-header">
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                                <div class="course-avatar"></div>
+                            </div>
+                            <p class="course-text">function greet() { return "Hello, World!"; }</p>
+                        </div>
+                    </div>
+
+                    <!-- Feature 2 -->
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-project-diagram"></i>
+                        </div>
+                        <h3 class="feature-title">Real Projects</h3>
+                        <p class="feature-desc">Build portfolio-worthy projects with our guided tutorials and real-world scenarios that employers value.</p>
+                        <a href="#" class="feature-link">
+                            Learn more <i class="fas fa-arrow-right"></i>
+                        </a>
+                        <div class="website-grid">
+                            <div class="website-card website-card-1">
+                                <div class="card-dots">
+                                    <div class="card-dot"></div>
+                                    <div class="card-dot"></div>
+                                    <div class="card-dot"></div>
+                                </div>
+                                <div class="card-label">E-commerce</div>
+                            </div>
+                            <div class="website-card website-card-2">
+                                <div class="card-dots">
+                                    <div class="card-dot"></div>
+                                    <div class="card-dot"></div>
+                                    <div class="card-dot"></div>
+                                </div>
+                                <div class="card-label">Dashboard</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Feature 3 -->
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3 class="feature-title">Community Support</h3>
+                        <p class="feature-desc">Join a vibrant community of developers, get feedback on your code, and collaborate on open-source projects.</p>
+                        <a href="#" class="feature-link">
+                            Learn more <i class="fas fa-arrow-right"></i>
+                        </a>
+                        <div class="email-bars">
+                            <div class="email-bar email-bar-full"></div>
+                            <div class="email-bar email-bar-partial"></div>
+                            <div class="email-bar email-bar-full"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <div class="footer-logo-icon">T</div>
+                        <span>TRUREXTRA</span>
+                    </div>
+                    <p class="footer-text">Empowering developers worldwide to build their skills and create amazing projects through interactive learning.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-discord"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h3 class="footer-heading">Product</h3>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="#">Features</a></li>
+                        <li class="footer-link"><a href="#">Pricing</a></li>
+                        <li class="footer-link"><a href="#">Documentation</a></li>
+                        <li class="footer-link"><a href="#">Roadmap</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3 class="footer-heading">Company</h3>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="#">About</a></li>
+                        <li class="footer-link"><a href="#">Blog</a></li>
+                        <li class="footer-link"><a href="#">Careers</a></li>
+                        <li class="footer-link"><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3 class="footer-heading">Resources</h3>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="#">Community</a></li>
+                        <li class="footer-link"><a href="#">Hackathons</a></li>
+                        <li class="footer-link"><a href="#">Tutorials</a></li>
+                        <li class="footer-link"><a href="#">Support</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 TRUREXTRA. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Help Button -->
+    <button class="help-btn">
+        <i class="fas fa-question"></i>
+    </button>
+
+    <!-- Login Modal -->
+    <div class="modal login-modal">
+        <div class="modal-content">
+            <button class="close-modal">
+                <i class="fas fa-times"></i>
+            </button>
+            <h3 class="modal-title">Welcome Back</h3>
+            <div class="user-type-selector">
+                <button type="button" class="user-type-btn student active" data-user-type="student">
+                    <i class="fas fa-user-graduate"></i>
+                    <span>Student</span>
+                </button>
+                <button type="button" class="user-type-btn recruiter" data-user-type="recruiter">
+                    <i class="fas fa-briefcase"></i>
+                    <span>Recruiter</span>
+                </button>
+                <button type="button" class="user-type-btn mentor" data-user-type="mentor">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    <span>Mentor</span>
+                </button>
+                <button type="button" class="user-type-btn organizer" data-user-type="organizer">
+                    <i class="fas fa-trophy"></i>
+                    <span>Organizer</span>
+                </button>
+            </div>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="login-email" class="form-label">Email Address</label>
+                    <input type="email" id="login-email" class="form-input" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password" class="form-label">Password</label>
+                    <input type="password" id="login-password" class="form-input" placeholder="Enter your password" required>
+                    <div class="remember-forgot">
+                        <div class="remember-me">
+                            <input type="checkbox" id="remember-me">
+                            <label for="remember-me">Remember me</label>
+                        </div>
+                        <a href="#" class="forgot-password">Forgot password?</a>
+                    </div>
+                </div>
+                <button type="submit" class="submit-btn">Log In</button>
+                <div class="auth-divider">or</div>
+                <div class="social-auth">
+                    <button type="button" class="social-btn google">
+                        <i class="fab fa-google"></i> Google
+                    </button>
+                    <button type="button" class="social-btn github">
+                        <i class="fab fa-github"></i> GitHub
+                    </button>
+                </div>
+                <div class="auth-footer">
+                    Don't have an account? <a href="#" class="auth-link signup-link">Sign up</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Signup Modal -->
+    <div class="modal signup-modal">
+        <div class="modal-content">
+            <button class="close-modal">
+                <i class="fas fa-times"></i>
+            </button>
+            <h3 class="modal-title">Create Your Account</h3>
+            <div class="verification-steps">
+                <div class="verification-step">
+                    <div class="step-number active">1</div>
+                    <div class="step-label">Account</div>
+                </div>
+                <div class="verification-step">
+                    <div class="step-number">2</div>
+                    <div class="step-label">Profile</div>
+                </div>
+                <div class="verification-step">
+                    <div class="step-number">3</div>
+                    <div class="step-label">Verify</div>
+                </div>
+            </div>
+            <form id="signup-form">
+                <div class="form-group">
+                    <label for="signup-email" class="form-label">Email Address</label>
+                    <input type="email" id="signup-email" class="form-input" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-password" class="form-label">Password</label>
+                    <input type="password" id="signup-password" class="form-input" placeholder="Create a password" required>
+                    <div class="password-strength">
+                        <div class="password-strength-bar"></div>
+                    </div>
+                    <div class="password-requirements">
+                        <div class="password-requirement">
+                            <i class="fas fa-check"></i>
+                            <span>At least 8 characters</span>
+                        </div>
+                        <div class="password-requirement">
+                            <i class="fas fa-check"></i>
+                            <span>Contains a number</span>
+                        </div>
+                        <div class="password-requirement">
+                            <i class="fas fa-check"></i>
+                            <span>Contains a special character</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="signup-confirm-password" class="form-label">Confirm Password</label>
+                    <input type="password" id="signup-confirm-password" class="form-input" placeholder="Confirm your password" required>
+                    <div class="password-mismatch" id="password-mismatch">
+                        <i class="fas fa-exclamation-circle"></i> Passwords don't match
+                    </div>
+                </div>
+                <button type="submit" class="submit-btn">Continue</button>
+                <div class="auth-divider">or</div>
+                <div class="social-auth">
+                    <button type="button" class="social-btn google">
+                        <i class="fab fa-google"></i> Google
+                    </button>
+                    <button type="button" class="social-btn github">
+                        <i class="fab fa-github"></i> GitHub
+                    </button>
+                </div>
+                <div class="auth-footer">
+                    Already have an account? <a href="#" class="auth-link login-link">Log in</a>
+                </div>
+            </form>
+            
+            <!-- Profile Section -->
+            <div class="profile-section">
+                <div class="profile-header">
+                    <div class="profile-picture-upload">
+                        <div class="profile-picture-preview" id="profile-picture-preview">
+                            <div class="avatar-initial" id="avatar-initial-preview">U</div>
+                        </div>
+                        <label for="profile-picture-input" class="upload-btn">
+                            <i class="fas fa-camera"></i> Upload Photo
+                        </label>
+                        <input type="file" id="profile-picture-input" accept="image/*">
+                    </div>
+                    <div class="profile-info">
+                        <h3 id="profile-name">User Name</h3>
+                        <p id="profile-email">user@example.com</p>
+                    </div>
+                </div>
+                <div class="user-type-selector">
+                    <button type="button" class="user-type-btn student active" data-user-type="student">
+                        <i class="fas fa-user-graduate"></i>
+                        <span>Student</span>
+                    </button>
+                    <button type="button" class="user-type-btn recruiter" data-user-type="recruiter">
+                        <i class="fas fa-briefcase"></i>
+                        <span>Recruiter</span>
+                    </button>
+                    <button type="button" class="user-type-btn mentor" data-user-type="mentor">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                        <span>Mentor</span>
+                    </button>
+                    <button type="button" class="user-type-btn organizer" data-user-type="organizer">
+                        <i class="fas fa-trophy"></i>
+                        <span>Organizer</span>
+                    </button>
+                </div>
+                <div class="profile-details">
+                    <div class="profile-detail">
+                        <div class="detail-label">Full Name</div>
+                        <input type="text" id="full-name" class="form-input" placeholder="Your full name" required>
+                    </div>
+                    <div class="profile-detail">
+                        <div class="detail-label">Phone Number</div>
+                        <input type="tel" id="phone" class="form-input" placeholder="Your phone number" required>
+                    </div>
+                    <div class="profile-detail">
+                        <div class="detail-label">Username</div>
+                        <input type="text" id="username" class="form-input" placeholder="Choose a username" required>
+                    </div>
+                    <div class="profile-detail">
+                        <div class="detail-label">Location</div>
+                        <input type="text" id="location" class="form-input" placeholder="Your location">
+                    </div>
+                </div>
+                <button type="button" class="submit-btn" id="complete-profile">Continue to Verification</button>
+            </div>
+            
+            <!-- Verification Section -->
+            <div class="verification-section">
+                <div class="verification-icon">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <h3>Verify Your Email</h3>
+                <p class="verification-message">We've sent a 6-digit verification code to <span id="verification-email">user@example.com</span>. Please enter it below.</p>
+                <div class="otp-inputs">
+                    <input type="text" class="otp-input" maxlength="1" pattern="[0-9]">
+                    <input type="text" class="otp-input" maxlength="1" pattern="[0-9]">
+                    <input type="text" class="otp-input" maxlength="1" pattern="[0-9]">
+                    <input type="text" class="otp-input" maxlength="1" pattern="[0-9]">
+                    <input type="text" class="otp-input" maxlength="1" pattern="[0-9]">
+                    <input type="text" class="otp-input" maxlength="1" pattern="[0-9]">
+                </div>
+                <div class="verification-loading">
+                    <i class="fas fa-spinner spinner"></i> Verifying your code...
+                </div>
+                <div class="verification-success">
+                    <i class="fas fa-check-circle"></i> Verification successful! Redirecting...
+                </div>
+                <button type="button" class="submit-btn" id="verify-otp">Verify & Complete</button>
+                <p>Didn't receive the code? <a href="#" class="resend-otp">Resend OTP</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Forgot Password Modal -->
+    <div class="modal forgot-modal">
+        <div class="modal-content">
+            <button class="close-modal">
+                <i class="fas fa-times"></i>
+            </button>
+            <h3 class="modal-title">Reset Your Password</h3>
+            <div class="user-type-selector">
+                <button type="button" class="user-type-btn student active" data-user-type="student">
+                    <i class="fas fa-user-graduate"></i>
+                    <span>Student</span>
+                </button>
+                <button type="button" class="user-type-btn recruiter" data-user-type="recruiter">
+                    <i class="fas fa-briefcase"></i>
+                    <span>Recruiter</span>
+                </button>
+                <button type="button" class="user-type-btn mentor" data-user-type="mentor">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    <span>Mentor</span>
+                </button>
+                <button type="button" class="user-type-btn organizer" data-user-type="organizer">
+                    <i class="fas fa-trophy"></i>
+                    <span>Organizer</span>
+                </button>
+            </div>
+            <form id="forgot-form">
+                <div class="form-group">
+                    <label for="forgot-email" class="form-label">Email Address</label>
+                    <input type="email" id="forgot-email" class="form-input" placeholder="Enter your email" required>
+                    <div class="form-message info">
+                        We'll send a password reset link to your email.
+                    </div>
+                </div>
+                <button type="submit" class="submit-btn" id="reset-password-btn">Send Reset Link</button>
+                <div class="auth-footer">
+                    Remember your password? <a href="#" class="auth-link login-link">Log in</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Live Coding Editor -->
+    <div class="coding-container" id="coding-container">
+        <div class="coding-header">
+            <h3 class="coding-title" id="coding-title">Two Sum</h3>
+            <button class="coding-close" id="coding-close">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="coding-content">
+            <div class="coding-description">
+                <h4 class="coding-problem-title" id="coding-problem-title">Two Sum</h4>
+                <span class="coding-problem-difficulty easy" id="coding-problem-difficulty">Easy</span>
+                <div class="coding-problem-content" id="coding-problem-content">
+                    <p>Given an array of integers <code>nums</code> and an integer <code>target</code>, return indices of the two numbers such that they add up to <code>target</code>.</p>
+                    <p>You may assume that each input would have exactly one solution, and you may not use the same element twice.</p>
+                    <p>You can return the answer in any order.</p>
+                    
+                    <div class="coding-problem-example">
+                        <div class="coding-problem-example-title">Example 1:</div>
+                        <div class="coding-problem-example-content">
+                            Input: nums = [2,7,11,15], target = 9
+                            Output: [0,1]
+                            Explanation: Because nums[0] + nums[1] == 9, we return [0, 1].
+                        </div>
+                    </div>
+                    
+                    <div class="coding-problem-example">
+                        <div class="coding-problem-example-title">Example 2:</div>
+                        <div class="coding-problem-example-content">
+                            Input: nums = [3,2,4], target = 6
+                            Output: [1,2]
+                        </div>
+                    </div>
+                    
+                    <div class="coding-problem-example">
+                        <div class="coding-problem-example-title">Example 3:</div>
+                        <div class="coding-problem-example-content">
+                            Input: nums = [3,3], target = 6
+                            Output: [0,1]
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="coding-test-cases">
+                    <div class="coding-test-cases-title">Test Cases</div>
+                    <div class="coding-test-case">
+                        <div class="coding-test-case-input">
+                            <strong>Input:</strong> nums = [2,7,11,15], target = 9
+                        </div>
+                        <div class="coding-test-case-output">
+                            <strong>Output:</strong> [0,1]
+                        </div>
+                    </div>
+                    <div class="coding-test-case">
+                        <div class="coding-test-case-input">
+                            <strong>Input:</strong> nums = [3,2,4], target = 6
+                        </div>
+                        <div class="coding-test-case-output">
+                            <strong>Output:</strong> [1,2]
+                        </div>
+                    </div>
+                    <div class="coding-test-case">
+                        <div class="coding-test-case-input">
+                            <strong>Input:</strong> nums = [3,3], target = 6
+                        </div>
+                        <div class="coding-test-case-output">
+                            <strong>Output:</strong> [0,1]
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="coding-editor-container">
+                <div class="coding-language-selector">
+                    <select class="coding-language-select" id="coding-language">
+                        <option value="javascript">JavaScript</option>
+                        <option value="python">Python</option>
+                        <option value="java">Java</option>
+                        <option value="c++">C++</option>
+                    </select>
+                </div>
+                
+                <div class="coding-editor" id="coding-editor" contenteditable="true">
+                    <pre>/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number[]}
+ */
+var twoSum = function(nums, target) {
+    // Your code here
+};</pre>
+                </div>
+                
+                <div class="coding-actions">
+                    <button class="coding-run-btn" id="coding-run-btn">
+                        <i class="fas fa-play"></i> Run Code
+                    </button>
+                    <button class="coding-submit-btn" id="coding-submit-btn">
+                        <i class="fas fa-check"></i> Submit
+                    </button>
+                </div>
+                
+                <div class="coding-result" id="coding-result" style="display: none;">
+                    <div class="coding-result-title">Result</div>
+                    <div class="coding-result-content" id="coding-result-content"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // DOM Elements
+        const themeToggle = document.querySelector('.theme-toggle');
+        const body = document.body;
+        const loginModal = document.querySelector('.login-modal');
+        const signupModal = document.querySelector('.signup-modal');
+        const forgotModal = document.querySelector('.forgot-modal');
+        const loginBtn = document.querySelector('.login-btn');
+        const signupBtn = document.querySelector('.signup-btn');
+        const getStartedBtn = document.querySelector('.get-started-btn');
+        const closeModalBtns = document.querySelectorAll('.close-modal');
+        const loginLinks = document.querySelectorAll('.login-link');
+        const signupLinks = document.querySelectorAll('.signup-link');
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const nav = document.querySelector('.nav');
+        const passwordInput = document.getElementById('signup-password');
+        const confirmPasswordInput = document.getElementById('signup-confirm-password');
+        const passwordStrengthBar = document.querySelector('.password-strength-bar');
+        const passwordChecks = document.querySelectorAll('.password-requirement i');
+        const loginForm = document.getElementById('login-form');
+        const signupForm = document.getElementById('signup-form');
+        const forgotForm = document.getElementById('forgot-form');
+        const userAvatar = document.querySelector('.user-avatar');
+        const dropdownMenu = document.querySelector('.dropdown-menu');
+        const helpBtn = document.querySelector('.help-btn');
+        const logoutLink = document.querySelector('.dropdown-item.logout');
+        const passwordMismatch = document.getElementById('password-mismatch');
+        const completeProfileBtn = document.getElementById('complete-profile');
+        const profileSection = document.querySelector('.profile-section');
+        const verificationSection = document.querySelector('.verification-section');
+        const forgotPasswordLinks = document.querySelectorAll('.forgot-password');
+        const resetPasswordBtn = document.getElementById('reset-password-btn');
+        const dashboardBtn = document.querySelector('.dashboard-btn');
+        const userDropdown = document.querySelector('.user-dropdown');
+        const profileEmail = document.getElementById('profile-email');
+        const verificationEmail = document.getElementById('verification-email');
+        const profileName = document.getElementById('profile-name');
+        const verifyOtpBtn = document.getElementById('verify-otp');
+        const otpInputs = document.querySelectorAll('.otp-input');
+        const resendOtpLink = document.querySelector('.resend-otp');
+        const userTypeSelectors = document.querySelectorAll('.user-type-selector');
+        const userTypeBtns = document.querySelectorAll('.user-type-btn');
+        const profilePictureInput = document.getElementById('profile-picture-input');
+        const profilePicturePreview = document.getElementById('profile-picture-preview');
+        const avatarInitialPreview = document.getElementById('avatar-initial-preview');
+        const verificationLoading = document.querySelector('.verification-loading');
+        const verificationSuccess = document.querySelector('.verification-success');
+        const dashboard = document.getElementById('dashboard');
+        const studentDashboard = document.getElementById('student-dashboard');
+        const recruiterDashboard = document.getElementById('recruiter-dashboard');
+        const mentorDashboard = document.getElementById('mentor-dashboard');
+        const organizerDashboard = document.getElementById('organizer-dashboard');
+        const heroSection = document.getElementById('hero');
+        const featuresSection = document.getElementById('features');
+        const studentName = document.getElementById('student-name');
+        const recruiterName = document.getElementById('recruiter-name');
+        const mentorName = document.getElementById('mentor-name');
+        const organizerName = document.getElementById('organizer-name');
+        const problemSolveBtns = document.querySelectorAll('.problem-solve-btn');
+        const codingContainer = document.getElementById('coding-container');
+        const codingCloseBtn = document.getElementById('coding-close');
+        const codingTitle = document.getElementById('coding-title');
+        const codingProblemTitle = document.getElementById('coding-problem-title');
+        const codingProblemDifficulty = document.getElementById('coding-problem-difficulty');
+        const codingProblemContent = document.getElementById('coding-problem-content');
+        const codingEditor = document.getElementById('coding-editor');
+        const codingRunBtn = document.getElementById('coding-run-btn');
+        const codingSubmitBtn = document.getElementById('coding-submit-btn');
+        const codingResult = document.getElementById('coding-result');
+        const codingResultContent = document.getElementById('coding-result-content');
+        const codingLanguageSelect = document.getElementById('coding-language');
+
+        // Coding problems data
+        const codingProblems = {
+            'two-sum': {
+                title: 'Two Sum',
+                difficulty: 'easy',
+                description: `
+                    <p>Given an array of integers <code>nums</code> and an integer <code>target</code>, return indices of the two numbers such that they add up to <code>target</code>.</p>
+                    <p>You may assume that each input would have exactly one solution, and you may not use the same element twice.</p>
+                    <p>You can return the answer in any order.</p>
+                    
+                    <div class="coding-problem-example">
+                        <div class="coding-problem-example-title">Example 1:</div>
+                        <div class="coding-problem-example-content">
+                            Input: nums = [2,7,11,15], target = 9
+                            Output: [0,1]
+                            Explanation: Because nums[0] + nums[1] == 9, we return [0, 1].
+                        </div>
+                    </div>
+                    
+                    <div class="coding-problem-example">
+                        <div class="coding-problem-example-title">Example 2:</div>
+                        <div class="coding-problem-example-content">
+                            Input: nums = [3,2,4], target = 6
+                            Output: [1,2]
+                        </div>
+                    </div>
+                    
+                    <div class="coding-problem-example">
+                        <div class="coding-problem-example-title">Example 3:</div>
+                        <div class="coding-problem-example-content">
+                            Input: nums = [3,3], target = 6
+                            Output: [0,1]
+                        </div>
+                    </div>
+                `,
+                testCases: [
+                    {
+                        input: 'nums = [2,7,11,15], target = 9',
+                        output: '[0,1]'
+                    },
+                    {
+                        input: 'nums = [3,2,4], target = 6',
+                        output: '[1,2]'
+                    },
+                    {
+                        input: 'nums = [3,3], target = 6',
+                        output: '[0,1]'
+                    }
+                ],
+                defaultCode: {
+                    javascript: `/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number[]}
+ */
+var twoSum = function(nums, target) {
+    // Your code here
+};`,
+                    python: `class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        # Your code here`,
+                    java: `class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        // Your code here
+    }
+}`,
+                    'c++': `class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        // Your code here
+    }
+};`
+                }
+            },
+            'add-two-numbers': {
+                title: 'Add Two Numbers',
+                difficulty: 'medium',
+                description: `
+                    <p>You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order, and each of their nodes contains a single digit. Add the two numbers and return the sum as a linked list.</p>
+                    <p>You may assume the two numbers do not contain any leading zero, except the number 0 itself.</p>
+                    
+                    <div class="coding-problem-example">
+                        <div class="coding-problem-example-title">Example 1:</div>
+                        <div class="coding-problem-example-content">
+                            Input: l1 = [2,4,3], l2 = [5,6,4]
+                            Output: [7,0,8]
+                            Explanation: 342 + 465 = 807.
+                        </div>
+                    </div>
+                    
+                    <div class="coding-problem-example">
+                        <div class="coding-problem-example-title">Example 2:</div>
+                        <div class="coding-problem-example-content">
+                            Input: l1 = [0], l2 = [0]
+                            Output: [0]
+                        </div>
+                    </div>
+                    
+                    <div class="coding-problem-example">
+                        <div class="coding-problem-example-title">Example 3:</div>
+                        <div class="coding-problem-example-content">
+                            Input: l1 = [9,9,9,9,9,9,9], l2 = [9,9,9,9]
+                            Output: [8,9,9,9,0,0,0,1]
+                        </div>
+                    </div>
+                `,
+                testCases: [
+                    {
+                        input: 'l1 = [2,4,3], l2 = [5,6,4]',
+                        output: '[7,0,8]'
+                    },
+                    {
+                        input: 'l1 = [0], l2 = [0]',
+                        output: '[0]'
+                    },
+                    {
+                        input: 'l1 = [9,9,9,9,9,9,9], l2 = [9,9,9,9]',
+                        output: '[8,9,9,9,0,0,0,1]'
+                    }
+                ],
+                defaultCode: {
+                    javascript: `/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} l1
+ * @param {ListNode} l2
+ * @return {ListNode}
+ */
+var addTwoNumbers = function(l1, l2) {
+    // Your code here
+};`,
+                    python: `# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
+        # Your code here`,
+                    java: `/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        // Your code here
+    }
+}`,
+                    'c++': `/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        // Your code here
+    }
+};`
+                }
+            },
+            'median-sorted-arrays': {
+                title: 'Median of Two Sorted Arrays',
+                difficulty: 'hard',
+                description: `
+                    <p>Given two sorted arrays <code>nums1</code> and <code>nums2</code> of size <code>m</code> and <code>n</code> respectively, return the median of the two sorted arrays.</p>
+                    <p>The overall run time complexity should be <code>O(log (m+n))</code>.</p>
+                    
+                    <div class="coding-problem-example">
+                        <div class="coding-problem-example-title">Example 1:</div>
+                        <div class="coding-problem-example-content">
+                            Input: nums1 = [1,3], nums2 = [2]
+                            Output: 2.00000
+                            Explanation: merged array = [1,2,3] and median is 2.
+                        </div>
+                    </div>
+                    
+                    <div class="coding-problem-example">
+                        <div class="coding-problem-example-title">Example 2:</div>
+                        <div class="coding-problem-example-content">
+                            Input: nums1 = [1,2], nums2 = [3,4]
+                            Output: 2.50000
+                            Explanation: merged array = [1,2,3,4] and median is (2 + 3) / 2 = 2.5.
+                        </div>
+                    </div>
+                `,
+                testCases: [
+                    {
+                        input: 'nums1 = [1,3], nums2 = [2]',
+                        output: '2.00000'
+                    },
+                    {
+                        input: 'nums1 = [1,2], nums2 = [3,4]',
+                        output: '2.50000'
+                    }
+                ],
+                defaultCode: {
+                    javascript: `/**
+ * @param {number[]} nums1
+ * @param {number[]} nums2
+ * @return {number}
+ */
+var findMedianSortedArrays = function(nums1, nums2) {
+    // Your code here
+};`,
+                    python: `class Solution:
+    def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
+        # Your code here`,
+                    java: `class Solution {
+    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        // Your code here
+    }
+}`,
+                    'c++': `class Solution {
+public:
+    double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
+        // Your code here
+    }
+};`
+                }
+            },
+            'palindrome-number': {
+                title: 'Palindrome Number',
+                difficulty: 'easy',
+                description: `
+                    <p>Given an integer <code>x</code>, return <code>true</code> if <code>x</code> is a palindrome, and <code>false</code> otherwise.</p>
+                    
+                    <div class="coding-problem-example">
+                        <div class="coding-problem-example-title">Example 1:</div>
+                        <div class="coding-problem-example-content">
+                            Input: x = 121
+                            Output: true
+                            Explanation: 121 reads as 121 from left to right and from right to left.
+                        </div>
+                    </div>
+                    
+                    <div class="coding-problem-example">
+                        <div class="coding-problem-example-title">Example 2:</div>
+                        <div class="coding-problem-example-content">
+                            Input: x = -121
+                            Output: false
+                            Explanation: From left to right, it reads -121. From right to left, it becomes 121-. Therefore it is not a palindrome.
+                        </div>
+                    </div>
+                    
+                    <div class="coding-problem-example">
+                        <div class="coding-problem-example-title">Example 3:</div>
+                        <div class="coding-problem-example-content">
+                            Input: x = 10
+                            Output: false
+                            Explanation: Reads 01 from right to left. Therefore it is not a palindrome.
+                        </div>
+                    </div>
+                `,
+                testCases: [
+                    {
+                        input: 'x = 121',
+                        output: 'true'
+                    },
+                    {
+                        input: 'x = -121',
+                        output: 'false'
+                    },
+                    {
+                        input: 'x = 10',
+                        output: 'false'
+                    }
+                ],
+                defaultCode: {
+                    javascript: `/**
+ * @param {number} x
+ * @return {boolean}
+ */
+var isPalindrome = function(x) {
+    // Your code here
+};`,
+                    python: `class Solution:
+    def isPalindrome(self, x: int) -> bool:
+        # Your code here`,
+                    java: `class Solution {
+    public boolean isPalindrome(int x) {
+        // Your code here
+    }
+}`,
+                    'c++': `class Solution {
+public:
+    bool isPalindrome(int x) {
+        // Your code here
+    }
+};`
+                }
+            }
+        };
+
+        // Current user state
+        let currentUser = null;
+        let userType = 'student';
+        let profilePictureFile = null;
+        let currentProblem = null;
+
+        // Theme Toggle
+        const savedTheme = localStorage.getItem('theme') || 
+                         (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        body.setAttribute('data-theme', savedTheme);
+        updateThemeIcon(savedTheme);
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        });
+
+        function updateThemeIcon(theme) {
+            const icon = themeToggle.querySelector('i');
+            icon.className = theme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
+        }
+
+        // Modal Toggle
+        function toggleModal(modal) {
+            modal.classList.toggle('active');
+            document.body.style.overflow = modal.classList.contains('active') ? 'hidden' : '';
+        }
+
+        function closeAllModals() {
+            [loginModal, signupModal, forgotModal].forEach(modal => {
+                modal.classList.remove('active');
+            });
+            document.body.style.overflow = '';
+        }
+
+        loginBtn.addEventListener('click', () => toggleModal(loginModal));
+        signupBtn.addEventListener('click', () => toggleModal(signupModal));
+        getStartedBtn.addEventListener('click', () => toggleModal(signupModal));
+
+        closeModalBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const modal = btn.closest('.modal');
+                toggleModal(modal);
+            });
+        });
+
+        loginLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                closeAllModals();
+                toggleModal(loginModal);
+            });
+        });
+
+        signupLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                closeAllModals();
+                toggleModal(signupModal);
+            });
+        });
+
+        // Forgot password links
+        forgotPasswordLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                closeAllModals();
+                toggleModal(forgotModal);
+            });
+        });
+
+        // Close modal when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target.classList.contains('modal')) {
+                closeAllModals();
+            }
+        });
+
+        // Mobile Menu Toggle
+        mobileMenuBtn.addEventListener('click', () => {
+            nav.classList.toggle('active');
+            mobileMenuBtn.innerHTML = nav.classList.contains('active') ? 
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+
+        // User Type Selection
+        userTypeSelectors.forEach(selector => {
+            selector.addEventListener('click', (e) => {
+                if (e.target.classList.contains('user-type-btn')) {
+                    // Remove active class from all buttons in this selector
+                    const buttons = selector.querySelectorAll('.user-type-btn');
+                    buttons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    e.target.classList.add('active');
+                    
+                    // Update user type
+                    userType = e.target.dataset.userType;
+                }
+            });
+        });
+
+        // Profile Picture Upload
+        profilePictureInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                profilePictureFile = file;
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    // Remove any existing image
+                    const existingImg = profilePicturePreview.querySelector('img');
+                    if (existingImg) {
+                        existingImg.remove();
+                    }
+                    
+                    // Hide the initial
+                    avatarInitialPreview.style.display = 'none';
+                    
+                    // Create and append the new image
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    profilePicturePreview.appendChild(img);
+                };
+                
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Password Strength Checker
+        if (passwordInput) {
+            passwordInput.addEventListener('input', () => {
+                const password = passwordInput.value;
+                let strength = 0;
+                
+                // Check length
+                if (password.length >= 8) {
+                    strength += 1;
+                    passwordChecks[0].className = 'fas fa-check requirement-met';
+                } else {
+                    passwordChecks[0].className = 'fas fa-check';
+                }
+                
+                // Check for numbers
+                if (/\d/.test(password)) {
+                    strength += 1;
+                    passwordChecks[1].className = 'fas fa-check requirement-met';
+                } else {
+                    passwordChecks[1].className = 'fas fa-check';
+                }
+                
+                // Check for special chars
+                if (/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+                    strength += 1;
+                    passwordChecks[2].className = 'fas fa-check requirement-met';
+                } else {
+                    passwordChecks[2].className = 'fas fa-check';
+                }
+                
+                // Update strength bar
+                passwordStrengthBar.className = 'password-strength-bar';
+                if (strength === 1) {
+                    passwordStrengthBar.classList.add('weak');
+                } else if (strength === 2) {
+                    passwordStrengthBar.classList.add('medium');
+                } else if (strength === 3) {
+                    passwordStrengthBar.classList.add('strong');
+                }
+            });
+        }
+
+        // Password match validation
+        confirmPasswordInput.addEventListener('input', function() {
+            if (this.value !== passwordInput.value) {
+                passwordMismatch.style.display = 'block';
+            } else {
+                passwordMismatch.style.display = 'none';
+            }
+        });
+
+        // Form Validation
+        if (loginForm) {
+            loginForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const email = document.getElementById('login-email').value;
+                const password = document.getElementById('login-password').value;
+                
+                // Show loading state
+                const submitBtn = loginForm.querySelector('.submit-btn');
+                const originalText = submitBtn.innerHTML;
+                submitBtn.innerHTML = '<i class="fas fa-spinner spinner"></i> Logging in...';
+                submitBtn.disabled = true;
+                
+                // Simulate API call
+                setTimeout(() => {
+                    // Successful login
+                    currentUser = {
+                        email: email,
+                        name: email.split('@')[0],
+                        initial: email.charAt(0).toUpperCase(),
+                        type: userType
+                    };
+                    
+                    // Update UI for logged in state
+                    loginBtn.style.display = 'none';
+                    signupBtn.style.display = 'none';
+                    dashboardBtn.classList.add('visible');
+                    userDropdown.classList.add('visible');
+                    document.getElementById('avatar-initial').textContent = currentUser.initial;
+                    
+                    // Show dashboard and hide main content
+                    dashboard.classList.add('active');
+                    heroSection.style.display = 'none';
+                    featuresSection.style.display = 'none';
+                    
+                    // Show appropriate dashboard based on user type
+                    showDashboard(currentUser.type);
+                    
+                    // Update dashboard names
+                    studentName.textContent = currentUser.name;
+                    recruiterName.textContent = currentUser.name;
+                    mentorName.textContent = currentUser.name;
+                    organizerName.textContent = currentUser.name;
+                    
+                    // Close modal
+                    closeAllModals();
+                    
+                    // Reset form
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                    
+                    // Show welcome message
+                    showNotification(`Welcome back, ${currentUser.name}! (${currentUser.type})`);
+                }, 1500);
+            });
+        }
+
+        // Show appropriate dashboard based on user type
+        function showDashboard(type) {
+            // Hide all dashboards first
+            studentDashboard.style.display = 'none';
+            recruiterDashboard.style.display = 'none';
+            mentorDashboard.style.display = 'none';
+            organizerDashboard.style.display = 'none';
+            
+            // Show the correct dashboard
+            switch(type) {
+                case 'student':
+                    studentDashboard.style.display = 'block';
+                    break;
+                case 'recruiter':
+                    recruiterDashboard.style.display = 'block';
+                    break;
+                case 'mentor':
+                    mentorDashboard.style.display = 'block';
+                    break;
+                case 'organizer':
+                    organizerDashboard.style.display = 'block';
+                    break;
+                default:
+                    studentDashboard.style.display = 'block';
+            }
+        }
+
+        // Dashboard button click handler
+        dashboardBtn.addEventListener('click', () => {
+            if (currentUser) {
+                // Show dashboard and hide main content
+                dashboard.classList.add('active');
+                heroSection.style.display = 'none';
+                featuresSection.style.display = 'none';
+                
+                // Show appropriate dashboard
+                showDashboard(currentUser.type);
+            }
+        });
+
+        if (signupForm) {
+            signupForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const email = document.getElementById('signup-email').value;
+                const password = document.getElementById('signup-password').value;
+                const confirmPassword = document.getElementById('signup-confirm-password').value;
+                
+                // Check password match
+                if (password !== confirmPassword) {
+                    passwordMismatch.style.display = 'block';
+                    return;
+                }
+                
+                // Show loading state
+                const submitBtn = signupForm.querySelector('.submit-btn');
+                const originalText = submitBtn.innerHTML;
+                submitBtn.innerHTML = '<i class="fas fa-spinner spinner"></i> Creating account...';
+                submitBtn.disabled = true;
+                
+                // Simulate API call
+                setTimeout(() => {
+                    // Move to next step (profile)
+                    const step1 = document.querySelector('.verification-step:nth-child(1) .step-number');
+                    const step2 = document.querySelector('.verification-step:nth-child(2) .step-number');
+                    
+                    step1.classList.remove('active');
+                    step1.classList.add('completed');
+                    step2.classList.add('active');
+                    
+                    signupForm.style.display = 'none';
+                    profileSection.classList.add('active');
+                    
+                    // Set profile email and name
+                    profileEmail.textContent = email;
+                    verificationEmail.textContent = email;
+                    const nameFromEmail = email.split('@')[0];
+                    profileName.textContent = nameFromEmail;
+                    document.getElementById('full-name').value = nameFromEmail;
+                    document.getElementById('username').value = nameFromEmail.toLowerCase();
+                    avatarInitialPreview.textContent = nameFromEmail.charAt(0).toUpperCase();
+                    
+                    // Reset button
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                }, 1000);
+            });
+        }
+
+        // Complete profile
+        completeProfileBtn.addEventListener('click', () => {
+            const fullName = document.getElementById('full-name').value;
+            const phone = document.getElementById('phone').value;
+            const username = document.getElementById('username').value;
+            const location = document.getElementById('location').value;
+            
+            if (!fullName || !phone || !username) {
+                showNotification('Please fill all required fields', 'error');
+                return;
+            }
+            
+            // Show loading state
+            completeProfileBtn.innerHTML = '<i class="fas fa-spinner spinner"></i> Saving profile...';
+            completeProfileBtn.disabled = true;
+            
+            // Simulate API call
+            setTimeout(() => {
+                // Move to verification step
+                const step2 = document.querySelector('.verification-step:nth-child(2) .step-number');
+                const step3 = document.querySelector('.verification-step:nth-child(3) .step-number');
+                
+                step2.classList.remove('active');
+                step2.classList.add('completed');
+                step3.classList.add('active');
+                
+                profileSection.classList.remove('active');
+                verificationSection.classList.add('active');
+                
+                // Focus first OTP input
+                otpInputs[0].focus();
+                
+                // Reset button
+                completeProfileBtn.innerHTML = 'Continue to Verification';
+                completeProfileBtn.disabled = false;
+            }, 1000);
+        });
+
+        // OTP Input Handling
+        otpInputs.forEach((input, index) => {
+            input.addEventListener('input', (e) => {
+                if (e.target.value.length === 1) {
+                    if (index < otpInputs.length - 1) {
+                        otpInputs[index + 1].focus();
+                    }
+                }
+            });
+            
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Backspace' && e.target.value.length === 0) {
+                    if (index > 0) {
+                        otpInputs[index - 1].focus();
+                    }
+                }
+            });
+        });
+
+        // Verify OTP
+        verifyOtpBtn.addEventListener('click', () => {
+            const otp = Array.from(otpInputs).map(input => input.value).join('');
+            
+            if (otp.length !== 6) {
+                showNotification('Please enter the complete 6-digit code', 'error');
+                return;
+            }
+            
+            // Show loading state
+            verifyOtpBtn.style.display = 'none';
+            verificationLoading.classList.add('active');
+            
+            // Simulate API verification
+            setTimeout(() => {
+                // On successful verification
+                verificationLoading.classList.remove('active');
+                verificationSuccess.classList.add('active');
+                
+                // Create user account
+                const email = document.getElementById('signup-email').value;
+                const fullName = document.getElementById('full-name').value;
+                currentUser = {
+                    email: email,
+                    name: fullName,
+                    username: document.getElementById('username').value,
+                    phone: document.getElementById('phone').value,
+                    location: document.getElementById('location').value,
+                    type: userType,
+                    initial: fullName.charAt(0).toUpperCase(),
+                    profilePicture: profilePictureFile ? URL.createObjectURL(profilePictureFile) : null
+                };
+                
+                // After showing success for 1.5 seconds, close modal and update UI
+                setTimeout(() => {
+                    // Close modal
+                    closeAllModals();
+                    
+                    // Update UI for logged in state
+                    loginBtn.style.display = 'none';
+                    signupBtn.style.display = 'none';
+                    dashboardBtn.classList.add('visible');
+                    userDropdown.classList.add('visible');
+                    document.getElementById('avatar-initial').textContent = currentUser.initial;
+                    
+                    // Show dashboard and hide main content
+                    dashboard.classList.add('active');
+                    heroSection.style.display = 'none';
+                    featuresSection.style.display = 'none';
+                    
+                    // Show appropriate dashboard based on user type
+                    showDashboard(currentUser.type);
+                    
+                    // Update dashboard names
+                    studentName.textContent = currentUser.name;
+                    recruiterName.textContent = currentUser.name;
+                    mentorName.textContent = currentUser.name;
+                    organizerName.textContent = currentUser.name;
+                    
+                    // Show success message
+                    showNotification(`Welcome to TRUREXTRA, ${currentUser.name}! (${currentUser.type})`);
+                    
+                    // Reset signup form for next user
+                    setTimeout(() => {
+                        signupForm.style.display = 'block';
+                        profileSection.classList.remove('active');
+                        verificationSection.classList.remove('active');
+                        document.querySelector('.verification-step:nth-child(1) .step-number').classList.add('active');
+                        document.querySelector('.verification-step:nth-child(1) .step-number').classList.remove('completed');
+                        document.querySelector('.verification-step:nth-child(2) .step-number').classList.remove('active');
+                        document.querySelector('.verification-step:nth-child(2) .step-number').classList.remove('completed');
+                        document.querySelector('.verification-step:nth-child(3) .step-number').classList.remove('active');
+                        signupForm.reset();
+                        otpInputs.forEach(input => input.value = '');
+                        verifyOtpBtn.style.display = 'block';
+                        verificationSuccess.classList.remove('active');
+                        
+                        // Reset profile picture
+                        const existingImg = profilePicturePreview.querySelector('img');
+                        if (existingImg) existingImg.remove();
+                        avatarInitialPreview.style.display = 'flex';
+                        profilePictureFile = null;
+                    }, 500);
+                }, 1500);
+            }, 1500);
+        });
+
+        // Resend OTP
+        resendOtpLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            // Show loading state
+            const originalText = resendOtpLink.innerHTML;
+            resendOtpLink.innerHTML = '<i class="fas fa-spinner spinner"></i> Resending...';
+            
+            // Simulate API call
+            setTimeout(() => {
+                showNotification('New verification code sent to your email');
+                resendOtpLink.innerHTML = originalText;
+            }, 1000);
+        });
+
+        // Forgot password form
+        if (forgotForm) {
+            forgotForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const email = document.getElementById('forgot-email').value;
+                
+                // Show loading state
+                const originalText = resetPasswordBtn.innerHTML;
+                resetPasswordBtn.innerHTML = '<i class="fas fa-spinner spinner"></i> Sending...';
+                resetPasswordBtn.disabled = true;
+                
+                // Simulate API call
+                setTimeout(() => {
+                    // Show success message
+                    showNotification(`Password reset link sent to ${email} (${userType})`);
+                    
+                                        // Reset button
+                    resetPasswordBtn.innerHTML = originalText;
+                    resetPasswordBtn.disabled = false;
+                }, 1000);
+            });
+        }
+
+        // User Dropdown
+        userAvatar.addEventListener('click', () => {
+            dropdownMenu.classList.toggle('active');
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.user-dropdown')) {
+                dropdownMenu.classList.remove('active');
+            }
+        });
+
+        // Logout
+        logoutLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            // Show loading state
+            const originalText = logoutLink.innerHTML;
+            logoutLink.innerHTML = '<i class="fas fa-spinner spinner"></i> Logging out...';
+            
+            // Simulate API call
+            setTimeout(() => {
+                // Reset user state
+                currentUser = null;
+                
+                // Update UI for logged out state
+                loginBtn.style.display = '';
+                signupBtn.style.display = '';
+                dashboardBtn.classList.remove('visible');
+                userDropdown.classList.remove('visible');
+                dropdownMenu.classList.remove('active');
+                
+                // Show main content and hide dashboard
+                dashboard.classList.remove('active');
+                heroSection.style.display = '';
+                featuresSection.style.display = '';
+                
+                // Show logout message
+                showNotification('You have been logged out successfully');
+                
+                // Reset button
+                logoutLink.innerHTML = originalText;
+            }, 800);
+        });
+
+        // Help Button
+        helpBtn.addEventListener('click', () => {
+            showNotification('Help center is coming soon!');
+        });
+
+        // Problem Solve Buttons
+        problemSolveBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const problemId = btn.dataset.problem;
+                currentProblem = codingProblems[problemId];
+                
+                if (currentProblem) {
+                    // Update coding editor with problem details
+                    codingTitle.textContent = currentProblem.title;
+                    codingProblemTitle.textContent = currentProblem.title;
+                    codingProblemDifficulty.textContent = currentProblem.difficulty.charAt(0).toUpperCase() + currentProblem.difficulty.slice(1);
+                    codingProblemDifficulty.className = `coding-problem-difficulty ${currentProblem.difficulty}`;
+                    codingProblemContent.innerHTML = currentProblem.description;
+                    
+                    // Set default code based on selected language
+                    codingEditor.innerHTML = currentProblem.defaultCode.javascript;
+                    
+                    // Show coding editor
+                    codingContainer.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }
+            });
+        });
+
+        // Close coding editor
+        codingCloseBtn.addEventListener('click', () => {
+            codingContainer.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+
+        // Run code
+        codingRunBtn.addEventListener('click', () => {
+            codingResult.style.display = 'block';
+            
+            // Show loading state
+            codingResultContent.innerHTML = '<i class="fas fa-spinner spinner"></i> Running your code...';
+            
+            // Simulate code execution
+            setTimeout(() => {
+                // Show test case results
+                let resultHtml = '<div class="coding-result-title">Test Case Results</div>';
+                
+                currentProblem.testCases.forEach((testCase, index) => {
+                    const passed = Math.random() > 0.3; // Random pass/fail for demo
+                    
+                    resultHtml += `
+                        <div class="coding-test-case">
+                            <div class="coding-test-case-input">
+                                <strong>Test Case ${index + 1}:</strong> ${testCase.input}
+                            </div>
+                            <div class="coding-test-case-output">
+                                <strong>Expected:</strong> ${testCase.output}
+                            </div>
+                            <div class="coding-test-case-output ${passed ? 'coding-result-success' : 'coding-result-error'}">
+                                <strong>Result:</strong> ${passed ? 'Passed' : 'Failed'}
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                codingResultContent.innerHTML = resultHtml;
+            }, 1500);
+        });
+
+        // Submit code
+        codingSubmitBtn.addEventListener('click', () => {
+            codingResult.style.display = 'block';
+            
+            // Show loading state
+            codingResultContent.innerHTML = '<i class="fas fa-spinner spinner"></i> Submitting your solution...';
+            
+            // Simulate submission
+            setTimeout(() => {
+                const passedAll = Math.random() > 0.5; // Random pass/fail for demo
+                
+                if (passedAll) {
+                    codingResultContent.innerHTML = `
+                        <div class="coding-result-title">Submission Results</div>
+                        <div class="coding-result-success">
+                            <i class="fas fa-check-circle"></i> All test cases passed!
+                        </div>
+                        <div style="margin-top: 1rem;">
+                            Your solution has been accepted. Great job!
+                        </div>
+                    `;
+                    showNotification('Problem solved successfully!', 'success');
+                } else {
+                    codingResultContent.innerHTML = `
+                        <div class="coding-result-title">Submission Results</div>
+                        <div class="coding-result-error">
+                            <i class="fas fa-times-circle"></i> Some test cases failed
+                        </div>
+                        <div style="margin-top: 1rem;">
+                            Try again! Check your solution against the failed test cases.
+                        </div>
+                    `;
+                    showNotification('Some test cases failed', 'error');
+                }
+            }, 2000);
+        });
+
+        // Language selector
+        codingLanguageSelect.addEventListener('change', function() {
+            if (currentProblem) {
+                codingEditor.innerHTML = currentProblem.defaultCode[this.value] || currentProblem.defaultCode.javascript;
+            }
+        });
+
+        // Notification function
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
+                ${message}
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Show notification
+            setTimeout(() => {
+                notification.style.opacity = '1';
+                notification.style.transform = 'translateY(0)';
+            }, 10);
+            
+            // Hide after 3 seconds
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                notification.style.transform = 'translateY(-20px)';
+                
+                // Remove after animation
+                setTimeout(() => {
+                    notification.remove();
+                }, 300);
+            }, 3000);
+        }
+
+        // Initialize UI based on user state
+        function initUI() {
+            if (currentUser) {
+                loginBtn.style.display = 'none';
+                signupBtn.style.display = 'none';
+                dashboardBtn.classList.add('visible');
+                userDropdown.classList.add('visible');
+                document.getElementById('avatar-initial').textContent = currentUser.initial;
+                
+                // Show dashboard and hide main content
+                dashboard.classList.add('active');
+                heroSection.style.display = 'none';
+                featuresSection.style.display = 'none';
+                
+                // Show appropriate dashboard
+                showDashboard(currentUser.type);
+            } else {
+                loginBtn.style.display = '';
+                signupBtn.style.display = '';
+                dashboardBtn.classList.remove('visible');
+                userDropdown.classList.remove('visible');
+                
+                // Show main content
+                dashboard.classList.remove('active');
+                heroSection.style.display = '';
+                featuresSection.style.display = '';
+            }
+        }
+
+        // Initialize the UI
+        initUI();
+    </script>
+</body>
+</html>
